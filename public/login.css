@@ -45,7 +45,7 @@ input[type=submit]{
     border-radius: 4px;
 }
 input:not(input[type=submit]):hover{
-    background-color: rgb(87, 159, 171, 0.2);
+    /* background-color: rgb(87, 159, 171, 0.2); */
     border:1px solid #579FAB;
 }
 input[type=submit]:hover{
@@ -60,4 +60,7 @@ div.go-to-signin a{
 
 div.go-to-signin a:hover{
     color: #397681;
+}
+select{
+    border-radius: 5px;
 }
