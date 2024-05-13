@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Core Page</title>
     <!-- Link to CSS file -->
-    <link rel="stylesheet" href="/public/core.css" />
+    <link rel="stylesheet" href="core.css" />
     <!-- Link to fontawsome -->
     <link
       rel="stylesheet"
@@ -36,20 +36,21 @@
         <h1>Society Sync</h1>
         <h5><i> Sync your societies with ease</i></h5>
       </div>
-      <div id="log-in-out">
-        <a href="#">Log Out</a>
-      </div>
+      <button id="log-in-out">Log Out</button>
     </nav>
 
     <div class="d-flex justify-content-between" id="div-cols">
-      <div class="column-1 ">
-        <h2 class="py-2 px-3"><i>Hi, <span id="member-name">Name Surname</span></i></h2>
-        <hr>
+      <!-- Left side Elements -->
+      <div class="column-1 col-6">
+        <h2 class="py-2 px-3">
+          <i>Hi, <span id="member-name">Name Surname</span></i>
+        </h2>
+        <hr />
         <h4 id="position"><span>{ </span>Position<span> }</span></h4>
-        <!-- <div class="div-teams"> -->
+        <!-- Teams Container -->
         <div class="row teams">
-          <h3 >Teams</h3>
-          <hr>
+          <h3>Teams</h3>
+          <hr />
           <div class="col">
             <i class="fa fa-bomb" style="font-size: 56px"></i>
             <p>Website</p>
@@ -58,7 +59,7 @@
             <i class="fa fa-bomb" style="font-size: 56px"></i>
             <p>Public Relations</p>
           </div>
-          
+
           <div class="col">
             <i class="fa fa-bomb" style="font-size: 56px"></i>
             <p>Sponsor</p>
@@ -74,64 +75,99 @@
             <p>Event Management</p>
           </div>
         </div>
-        <!-- </div> -->
       </div>
-      <div class="column-2">
+
+      <!-- Right Side elements: -->
+      <div class="column-2 col-6">
+        <!-- Notice Board -->
         <div id="notices" class="row">
           <div class="notice-head d-flex justify-content-between">
-            <h3 style="color: white;">Notice Board</h3>
-            <a href="#"><i class="fa fa-plus-circle" style="font-size:24px"></i></a>
+            <h3 style="color: white">Notice Board</h3>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              ><i class="fa fa-plus-circle" style="font-size: 24px"></i
+            ></button>
           </div>
-          <ul>
-            <li>
+          <ul id="notice-list">
+            <!-- <li>
+              <h5 class="notice-title">Title</h5>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
               numquam ea ducimus nemo voluptates totam, non maiores repellendus!
               Aperiam, suscipit?
             </li>
-            <hr>
+            <hr />
             <li>
+              <h5 class="notice-title">Title</h5>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
               numquam ea ducimus nemo voluptates totam, non maiores repellendus!
               Aperiam, suscipit?
             </li>
-            <hr>
+            <hr />
             <li>
+              <h5 class="notice-title">Title</h5>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
               numquam ea ducimus nemo voluptates totam, non maiores repellendus!
               Aperiam, suscipit?
-            </li>
-            <hr>
-            <li>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-              numquam ea ducimus nemo voluptates totam, non maiores repellendus!
-              Aperiam, suscipit?
-            </li>
-            <hr>
-            <li>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-              numquam ea ducimus nemo voluptates totam, non maiores repellendus!
-              Aperiam, suscipit?
-            </li>
+            </li> -->
           </ul>
         </div>
+
+        <!-- Modal to add notice to notice board -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <label class="modal-title fs-5" for="notice-title" id="exampleModalLabel">
+                  Tilte: 
+                </label>
+                <input type="text" name="notice-title" id="notice-title">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <!-- for notice description -->
+              <label class="modal-body" for="notice-desc">
+                Description :
+              </label>
+              <input type="text" name="notice-desc" id="notice-desc">
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary">Close</button>
+                <button type="button" class="btn btn-primary" id="addNotice">Add Notice</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- to add task for different team -->
         <div id="div-add-task" class="row">
           <h3 class="mb-4">Add Task</h3>
-          <div>
+          <form action="#">
             <div class="form-group row">
-            <label class="col-sm-2 " for="team">Team:</label>
-            <select class="col-sm-10 py-1" name="team" id="team">
-              <option selected>Choose...</option>
-              <option value="Website">Website</option>
-              <option value="Creative">Creative</option>
-              <option value="Sponsor">Sponsor</option>
-              <option value="PR">PR</option>
-            </select>
+              <label class="col-sm-2" for="team">Team:</label>
+              <select class="col-sm-10 py-1" name="team" id="team">
+                <option selected>Choose...</option>
+                <option value="Website">Website</option>
+                <option value="Creative">Creative</option>
+                <option value="Sponsor">Sponsor</option>
+                <option value="PR">PR</option>
+              </select>
             </div>
-            <br>
-            <button class = "py-1 px-3" id="submit">Add task</button>
-          </div>
+            <br />
+            <button class="py-1 px-3" id="submit">Add Details</button>
+          </form>
         </div>
       </div>
     </div>
+    <script src="core.js"></script>
   </body>
 </html>

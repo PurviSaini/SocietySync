@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600");
+
+body{
+    font-family: 'Raleway', sans-serif;
+}
+
+nav{
+    text-align: center;
+    color: #2790a2;
+    background-color: rgb(152, 212, 222, 0.7);
+    padding: 5px 10px 10px;
+    align-items: center;
+    /* box-shadow: 0 0 5px grey; */
+}
+
+nav #website-name h1{
+    font-size: 3.3em;
+    font-weight: 700;
+}
+nav #website-name h5{
+    color: #53311B;
+}
+
+div#user a{
+    text-decoration: none;
+    font-size: 30px;
+    color: #53311B;
+}
+div#user a #user-name{
+    color: #2790a2;
+    font-weight: 500;
+}
+
+div#log-in-out a{
+    text-decoration: none;
+    color:#2790a2;
+    font-size: 20px;
+    font-weight: 500;
+    background-color:rgba(106, 164, 174, 0.2);
+    padding: 3px 15px;
+    border-radius: 6px;
+    transition: background-color 0.23s, color 0.23s;
+}
+
+div#log-in-out a:hover{
+    background-color:#3593a4;
+    color: white;
+}
+div.column-1{
+    padding: 30px 10px 30px 30px;
+    margin-right: 5px;
+}
+#position span{
+    color: #53311B;
+}
+div.columns-1, div.column-2{
+    padding-bottom: -440px;
+}
+div.column-1 h2{
+    color: white;
+    background-color: #53311B;
+    border-radius: 5px;
+    margin-right: 4em;
+}
+div.column-1 h4#position{
+    color: #2790a2;
+}
+
+div.column-1 div.container{
+    background-color:rgba(0, 255, 255, 0.071);
+    border:1px solid #2790a2;
+    border-radius: 7px;
+    box-shadow: 0 0 10px grey;
+}
+
+div.container div.given-tasks{
+    background-color: #2790a2;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 23px;
+    /* border-bottom: 1px solid #2790a2; */
+}
+
+div.container div.given-tasks a{
+    text-decoration: none;
+    color: white;
+    border-bottom: 2px solid white;
+    border-top: 2px solid transparent;
+    margin: 0 50px;
+    padding-bottom: 10px;
+    transition: background-color 0.2s, border-bottom 0.2s, border-top 0.2s;
+}
+
+div.container div.given-tasks a:hover{
+    border-bottom: 2px solid #2790a2;
+    border-top: 2px solid #2790a2;
+    background-color: rgba(255, 255, 255, 0.194);
+}
+
+div.container div.task{
+    margin:10px 10px 10px 0px;
+    background-color: white;
+    border : 1px solid #2790a2;
+    padding:15px;
+    color: #53311B;
+    font-size: var(--bs-body-font-size);
+    font-weight: 500;
+}
+div.container div.task h5.title{
+    color: #2790a2;
+}
+
+div.column-2{
+    padding: 30px;
+}
+
+div.column-2 div#notices{
+    background-color: #4dd0e7;
+    padding: 20px;
+    color: #562f15;
+    font-weight: 500;
+    overflow: scroll;
+    max-height: 60%;
+    box-shadow: 0 0 10px grey;
+}
+
+div#notices div.notice-head{
+    background-color: #2790a2;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+#notices ul{
+    padding: 10px 30px;
+}
+
+#view-members{
+    text-align:center;
+    padding:7px;
+    margin:15px 30px;
+    border-radius: 7px;
+    box-shadow: 0 0 15px grey;
+    border:1px solid #1b6370;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#view-members:hover{
+    background-color: rgba(0, 255, 255, 0.071);
+}
+#view-members a{
+ text-decoration: none;
+ font-size: 25px;
+ color:#53311B;
+ font-weight: 500;
+}
