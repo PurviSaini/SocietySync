@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,600");
 
 body{
-    font-family: 'Raleway', sans-serif;
+    font-family:'Raleway', sans-serif;
 }
 
 nav{
@@ -32,7 +32,7 @@ form{
     text-align: center;
 }
 label{
-    color: #579FAB;
+    color: #2790a2;
     font-weight: 500;
     font-size: 20px;
 }
@@ -53,7 +53,7 @@ input[type=submit]:hover{
 }
 
 div.go-to-signin a{
-    color: #579FAB;
+    color: #2790a2;
     text-decoration: none;
     font-weight: 500;
 }
