@@ -3,7 +3,6 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-const path=require('path');
 require('dotenv').config();
 
 const app = express();
@@ -13,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Middleware for serving static files from the 'public' folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(__dirname + "/public"));
 
 // Set up session middleware
 app.use(session({
@@ -64,6 +63,27 @@ app.get('/team', isLoggedIn, (req, res) => {
   });
 
 //APIs
+app.post('/signup', async (req, res) => { 
+  // const { name, username, password, team, role } = req.body;
+
+  // try {
+  //   // Check for existing user
+  //   const existingUser = await User.findOne({ username });
+  //   if (existingUser) {
+  //     return res.status(400).send({ title: "User already exists" });
+  //   }
+  //   // Hash password before saving
+  //   const hashedPassword = await bcrypt.hash(password, 10);
+  //   // Create and save new user
+  //   const user = new User({ name,username, password: hashedPassword,team,role });
+  //   await user.save();
+    // res.status(200).send({ message: "Signup successful" });
+  // } catch (error) {
+  //   console.error("Error during signup:", error);
+    // res.status(500).send({ message: "Failed to create user" });
+  // } 
+});
+
 app.post('/login', (req, res) => {
   // In a real application, you would validate credentials against a database
 //   if(database authentication is successful){

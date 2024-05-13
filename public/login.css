@@ -37,7 +37,7 @@ label{
     font-size: 20px;
 }
 
-input[type=submit]{
+#submit{
     width: 20%;
     background-color: #579FAB;
     border: none;
@@ -48,7 +48,7 @@ input:not(input[type=submit]):hover{
     /* background-color: rgb(87, 159, 171, 0.2); */
     border:1px solid #579FAB;
 }
-input[type=submit]:hover{
+#submit:hover{
     background-color: #4b8a95;
 }
 
