@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600");
+
+body{
+    font-family: 'Raleway', sans-serif;
+}
+
+nav{
+    text-align: center;
+    color: #579FAB;
+    background-color: rgb(152, 212, 222, 0.7);
+    padding: 5px 10px 10px;
+}
+nav > h1{
+    font-size: 3.3em;
+    font-weight: 700;
+}
+nav> h5, h2#form-heading{
+    color: #53311B;
+}
+
+div.div-form{
+    text-align: center;
+    margin:3% 20% 1%;
+    padding: 0px 60px 20px;
+    border: 1px solid grey;
+    background-color: rgb(87, 159, 171, 0.1);
+    border-radius: 5px;
+}
+form{
+    /* margin:20px;
+    padding: 60px 20px; */
+    text-align: center;
+}
+label{
+    color: #579FAB;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+input[type=submit]{
+    width: 20%;
+    background-color: #579FAB;
+    border: none;
+    color: white;
+    border-radius: 4px;
+}
+input:not(input[type=submit]):hover{
+    /* background-color: rgb(87, 159, 171, 0.2); */
+    border:1px solid #579FAB;
+}
+input[type=submit]:hover{
+    background-color: #4b8a95;
+}
+
+div.go-to-signin a{
+    color: #579FAB;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+div.go-to-signin a:hover{
+    color: #397681;
+}
+select{
+    border-radius: 5px;
+}
