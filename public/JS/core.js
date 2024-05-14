@@ -1,3 +1,37 @@
+const openTeam = () => {
+  window.location.href = "/Team";
+}
+
+const teamDiv = document.querySelector(".teams");
+const colDiv = teamDiv.querySelectorAll(".col");
+
+colDiv.forEach(col => {
+  col.addEventListener('click', openTeam);
+})
+
+//function to upload the task in a variable ❗
+const uploadTask = () => {
+  // Get form data
+  const taskTitle = document.getElementById('taskTitle').value;
+  const taskDescription = document.getElementById('taskDescription').value;
+  const team = document.getElementById('team').value;
+
+  // Create task object
+  const task = {
+      title: taskTitle,
+      description: taskDescription,
+      team: team
+  };
+
+  // Log task object (you can do whatever you want with this data)
+  console.log('New Task:', task);
+
+  // Optionally, you can clear the form fields after submission
+  document.getElementById('taskForm').reset();
+}
+
+document.getElementById('upload-task').addEventListener('click', uploadTask);
+
 // =======================================================================
 // Dummy data for notices
 const notices = [

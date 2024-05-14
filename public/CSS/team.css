@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600");
+
+/* .navbar {
+    background-color: #98d4de;
+}
+
+.nav-el {
+    color: white;
+    font-weight: 600;
+    font-size: large;
+} */
+
+nav{
+    text-align: center;
+    color: #2790a2;
+    background-color: rgb(152, 212, 222, 0.7);
+    padding: 5px 10px 10px;
+    align-items: center;
+}
+
+nav #website-name h1{
+    font-size: 3.3em;
+    font-weight: 700;
+}
+nav #website-name h5{
+    color: #53311B;
+}
+
+div#user a{
+    text-decoration: none;
+    font-size: 20px;
+    color: #53311B;
+}
+div#user a #user-name{
+    color: #2790a2;
+    font-weight: 500;
+}
+
+div#log-in-out a{
+    text-decoration: none;
+    color:#2790a2;
+    font-size: 20px;
+    font-weight: 500;
+    background-color:rgba(106, 164, 174, 0.2);
+    padding: 3px 15px;
+    border-radius: 6px;
+    transition: background-color 0.23s, color 0.23s;
+}
+
+div#log-in-out a:hover{
+    background-color:#3593a4;
+    color: white;
+}
+
+.btn-logout {
+    background-color: #579fab;
+}
+
+.content {
+    width: 100vw;
+}
+
+.col-md-4 {
+    border: 2px solid black;
+}
+
+.sidebar {
+    left: 0;
+}
+
+#peopleList {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.table-container {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.uploaded {
+    color: #edd113;
+}
+
+.assigned {
+    color: brown;
+}
+
+.completed {
+    color: #579fab;
+}

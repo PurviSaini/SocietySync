@@ -20,9 +20,14 @@ nav #website-name h5{
     color: #53311B;
 }
 
+.teams .col a{
+    text-decoration: none;
+    color: black;
+}
+
 div#user a{
     text-decoration: none;
-    font-size: 30px;
+    font-size: 20px;
     color: #53311B;
 }
 div#user a #user-name{
@@ -170,3 +175,18 @@ div.column-2 div#div-add-task label{
 #submit:hover{
     background-color:#238191;
 }
+
+.task-add-body {
+    height: 60vh;
+}
+
+.task-add {
+    border-radius: 0;
+    background-color: #9ed5df;
+}
+
+#upload-task {
+    background-color: #579fab;
+    color: white;
+    font-weight: bold;
+}  

@@ -23,7 +23,7 @@ nav #website-name h5{
 
 div#user a{
     text-decoration: none;
-    font-size: 30px;
+    font-size: 20px;
     color: #53311B;
 }
 div#user a #user-name{
@@ -155,4 +155,33 @@ div#notices div.notice-head{
  font-size: 25px;
  color:#53311B;
  font-weight: 500;
+}
+
+.uploaded {
+    color: #edd113;
+}
+
+.assigned {
+    color: brown;
+}
+
+.completed {
+    color: #579fab;
+}
+
+.task-body {
+    height: 100vh;
+}
+
+#accept-btn {
+    background-color: #edd113;
+    color: white;
+    border: 1px transparent grey;
+    font-weight: bold;
+}
+
+#assign-btn {
+    background-color: brown;
+    color: white;
+    font-weight: bold;
 }

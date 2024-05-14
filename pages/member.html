@@ -30,22 +30,21 @@
     <nav class="d-flex justify-content-between align-items-center">
       <div id="user">
         <a href="#">
-          <i class="fa fa-user-circle" style="font-size: 50px"></i>
-          <p id="user-name">Username</p>
+          <i class="fa fa-user-circle p-2" style="font-size: 25px"></i><span id="user-name">Username</span>
         </a>
       </div>
-      <div id="website-name">
+      <!-- <div id="website-name">
         <h1>Society Sync</h1>
         <h5><i> Sync your societies with ease</i></h5>
-      </div>
+      </div> -->
       <div id="log-in-out">
-        <a href="#">Log Out</a>
+        <a href="/logout">Log Out</a>
       </div>
     </nav>
 
     <div class="d-flex justify-content-between" id="div-cols">
         <!-- Left side elements -->
-      <div class="column-1 col-6">
+      <div class="column-1 col-8">
         <h2 class="py-2 px-3 mr-5">
           <i>Hi, <span id="member-name">Name Surname</span></i>
         </h2>
@@ -83,6 +82,50 @@
         </div>
       </div>
 
+      <!-- Task Modal -->
+      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel1">
+                <!-- Fill modal heading -->
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body task-body">
+              <!-- Fill modal content -->
+            </div>
+            <div class="modal-footer d-flex justify-content-between p-4">
+              <button type="button" class="btn btn-secondary" id="accept-btn">Accept</button>
+              <button type="button" class="btn btn-primary" id="assign-btn" data-bs-toggle="modal" data-bs-target="#exampleModal2">Assign</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assign to People Modal -->
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel2">Select People</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="peopleForm">
+                <div id="peopleList2" class="form-group">
+                  <!-- People checkboxes will be dynamically added here -->
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="submit-people" data-bs-dismiss="modal">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Right side elements -->
       <div class="column-2 col">
 
@@ -110,7 +153,7 @@
           </ul>
         </div>
         <div id="view-members" class="row mt-4">
-          <a href="/pages/team.html">View Members</a>
+          <a href="/Team">View Members</a>
         </div>
       </div>
     </div>
