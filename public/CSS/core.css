@@ -49,19 +49,23 @@ div.column-1{
     padding: 30px;
     margin-right: 10px;
 }
-#position span{
+
+div.column-1 h4#position{
+    color: #2790a2;
+}
+
+h4#position span{
     color: #53311B;
 }
+
 div.columns-1, div.column-2{
     padding-bottom: -440px;
 }
+
 div.column-1 h2{
     color: white;
     background-color: #53311B;
     border-radius: 5px;
-}
-div.column-1 h4#position{
-    color: #2790a2;
 }
 
 div.column-1 div.teams{
