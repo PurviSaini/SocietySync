@@ -20,6 +20,7 @@ submitBtn.addEventListener('click', async (event) => {
     let response = await postData('/signup', data);
     if (response.message === "Signup successful") {
     alert(response.message);
+    window.location.href = "/";
     } else {
     alert("Sign up failed. Please try again.");
     }

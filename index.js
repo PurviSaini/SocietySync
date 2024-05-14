@@ -3,6 +3,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const User = require('./models/User');
 require('dotenv').config();
 
 const app = express();
@@ -30,16 +31,18 @@ const isLoggedIn = (req, res, next) => {
   }
 };
 //connect to databse
-// mongoose.connect(process.env.MONGO_URI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// })
-// .then(() => {
-//     console.log('Connected to MongoDB');
-// })
-// .catch((error) => {
-//     console.error('Error connecting to MongoDB:', error);
-// });
+const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+async function run() {
+  try {
+    // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
+    await mongoose.connect(process.env.MONGO_URI, clientOptions);
+    await mongoose.connection.db.admin().command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch (error) {
+    console.log("error in connection to db")
+  }
+}
+run().catch(console.dir);
 
 //serve pages
 app.get('/', (req, res) => {
@@ -50,59 +53,67 @@ app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/pages/signup.html');
   });
 
-app.get('/core', isLoggedIn, (req, res) => {
+app.get('/Core', isLoggedIn, (req, res) => {
     res.sendFile(__dirname + '/pages/core.html');
   });
 
-app.get('/member', isLoggedIn, (req, res) => {
+app.get('/Member', isLoggedIn, (req, res) => {
     res.sendFile(__dirname + '/pages/member.html');
   });
 
-app.get('/team', isLoggedIn, (req, res) => {
+app.get('/Team', isLoggedIn, (req, res) => {
     res.sendFile(__dirname + '/pages/team.html');
   });
 
 //APIs
 app.post('/signup', async (req, res) => { 
-  // const { name, username, password, team, role } = req.body;
-
-  // try {
-  //   // Check for existing user
-  //   const existingUser = await User.findOne({ username });
-  //   if (existingUser) {
-  //     return res.status(400).send({ title: "User already exists" });
-  //   }
-  //   // Hash password before saving
-  //   const hashedPassword = await bcrypt.hash(password, 10);
-  //   // Create and save new user
-  //   const user = new User({ name,username, password: hashedPassword,team,role });
-  //   await user.save();
-    // res.status(200).send({ message: "Signup successful" });
-  // } catch (error) {
-  //   console.error("Error during signup:", error);
-    // res.status(500).send({ message: "Failed to create user" });
-  // } 
+  const { name, username, password, team, role } = req.body;
+  try {
+    // Check for existing user
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).send({ title: "User already exists" });
+    }
+    // Hash password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // Create and save new user
+    const user = new User({ name,username, password: hashedPassword,team,role });
+    await user.save();
+    res.status(200).send({ message: "Signup successful" });
+  } catch (error) {
+    console.error("Error during signup:", error);
+    res.status(500).send({ message: "Failed to create user" });
+  } 
 });
 
-app.post('/login', (req, res) => {
-  // In a real application, you would validate credentials against a database
-//   if(database authentication is successful){
-//     req.session.user = "abc"; // Store username in session
-//     res.status(200).json({userEmail:email});
-//   }
-//   else{
-//     res.status(200).send('Login successful');
+app.post('/login',async (req, res) => {
+  const { username, password } = req.body
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).send({ title: "User not Found" });
+    }
 
-//   }
+    // Compare hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).send({ title: "Invalid Password" });
+    }
+    // Login successful, set session variable
+    req.session.user = user;
+    res.send({ message: "Login successful",role:user.role });
+  } catch (error) {
+    res.status(500).send({ message: "Failed to login" });
+  }
+ 
 });
 
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.error('Error destroying session:', err);
-      res.status(500).send('Error logging out');
+      console.error('Error destroying session:');
     } else {
-      res.send('Logout successful');
+      res.redirect('/');
     }
   });
 });

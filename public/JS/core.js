@@ -1,9 +1,3 @@
-// clicking log out button
-const logout = document.getElementById("log-in-out");
-logout.addEventListener("click", function () {
-  alert("Logged out!");
-});
-
 // =======================================================================
 // Dummy data for notices
 const notices = [
