@@ -1,3 +1,14 @@
+document.getElementById('log-in-out').addEventListener('click', () => {
+  fetch('/logout', {
+    method: 'POST'
+  })
+    .then(response => {
+      window.location.href="/"; 
+    })
+    .catch(error => {
+      alert("Error in logging out");
+    });
+});
 const openTeam = () => {
   window.location.href = "/Team";
 }

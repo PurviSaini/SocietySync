@@ -108,12 +108,12 @@ app.post('/login',async (req, res) => {
  
 });
 
-app.get('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:');
     } else {
-      res.redirect('/');
+      res.status(200).send({ message: "Logged out" });
     }
   });
 });
