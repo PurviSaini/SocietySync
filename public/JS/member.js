@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
 // clicking log out button
 const logout = document.getElementById("log-in-out");
 logout.addEventListener("click", function () {
@@ -32,9 +31,9 @@ const assigned_tasks = [
 // adding assigned tasks to task list under 'Assigned Tasks' 
 const taskList = document.getElementById("tasks-list");
 assigned_tasks.forEach((row) => {
-  taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+  taskList.innerHTML += `<div class="task"">
     <h5 class="title">${row.title}</h5>
-    <p class="desc">${row.description}</p>
+  ${row.description}
 </div>`;
 });
 
@@ -95,7 +94,7 @@ let role = "Associate";
 
 // writing position of member in page
 const position = document.getElementById("position");
-position.innerText = role;
+position.innerHTML = `<span>{ </span>${role}<span> }</span>`;
 
 
 // Managind visibility of 'view members' button according to role
