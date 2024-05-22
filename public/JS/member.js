@@ -44,9 +44,30 @@ const assigned_tasks = [
   }
 ];
 
+const upcoming_tasks = [
+  {
+    sno: 1,
+    title: "Title 1",
+    description:
+      "This is upcoming task 1. Dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates.",
+  },
+  {
+    sno: 2,
+    title: "Title 2",
+    description:
+      "This is upcoming task 2. Dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates.",
+  },
+  {
+    sno: 3,
+    title: "Title 3",
+    description:
+      "This is upcoming task 3. Dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates.",
+  }
+];
+
 // adding assigned tasks to task list under 'Assigned Tasks' 
 const taskList = document.getElementById("tasks-list");
-assigned_tasks.forEach((row) => {
+upcoming_tasks.forEach((row) => {
   taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
     <h5 class="title">${row.title}</h5>
     <p class="desc">${row.description}</p>
@@ -57,13 +78,27 @@ assigned_tasks.forEach((row) => {
 // functions to be performed after clicking 'Assigned Tasks'
 const assignedTaskButton = document.getElementById("assigned-task");
 assignedTaskButton.addEventListener("click", function(){
-    alert("you now can see assigned tasks!");
+    const taskList = document.getElementById("tasks-list");
+    taskList.innerHTML  = "";
+    assigned_tasks.forEach((row) => {
+      taskList.innerHTML += `<div class="task"">
+        <h5 class="title">${row.title}</h5>
+      ${row.description}
+    </div>`;
+    });
 })
 
 // functions to be performed after clicking 'Assigned Tasks'
 const upcomingTaskButton = document.getElementById("upcoming-task");
 upcomingTaskButton.addEventListener("click", function(){
-    alert("you now can see upcoming tasks!");
+    const taskList = document.getElementById("tasks-list");
+    taskList.innerHTML  = "";
+    upcoming_tasks.forEach((row) => {
+      taskList.innerHTML += `<div class="task"">
+        <h5 class="title">${row.title}</h5>
+      ${row.description}
+    </div>`;
+    });
 })
 
 // =================================================================================================
