@@ -89,5 +89,55 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     })
 
+    const assigned_tasks = [
+      {
+        sno: 1,
+        title: "Title 1",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
+      },
+      {
+        sno: 2,
+        title: "Title 2",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
+      },
+      {
+        sno: 3,
+        title: "Title 3",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
+      }
+    ];
+    
+    // adding assigned tasks to task list under 'Assigned Tasks' 
+    const taskList = document.getElementById("tasks-list");
+    assigned_tasks.forEach((row) => {
+      taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+          <h5 class="title">${row.title}</h5>
+          <p class="desc">${row.description}</p>
+          </div>`;
+    });
+
+    const taskBoxes = document.querySelectorAll(".task");
+    console.log(taskBoxes);
+    taskBoxes.forEach(taskBox => {
+      console.log("Entered taskBox");
+      taskBox.addEventListener('click', () => {
+      // Get modal title element
+      const heading = taskBox.querySelector('.title').innerText;
+      
+      const content = taskBox.querySelector('.desc').innerText;
+      const modalTitle = document.querySelector('.modal-title');
+      // Set modal title
+      modalTitle.textContent = heading;
+      console.log("heading: ", modalTitle.innerText);
+      // Get modal body content element
+      const modalBodyContent = document.querySelector('.modal-body');
+      console.log("description: ", modalBodyContent.innerText);
+      // Set modal body content
+      modalBodyContent.textContent = content;
+    });
+  });
 
 });
