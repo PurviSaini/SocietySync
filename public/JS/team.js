@@ -9,20 +9,33 @@ document.getElementById('log-in-out').addEventListener('click', () => {
         alert("Error in logging out");
       });
   });
-document.addEventListener('DOMContentLoaded', function () {
+  async function postData(url = "", data = {}) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), 
+    });
+    return await response.json(); 
+  }
+  
+  //display team name and username
+document.querySelector("#user-name").textContent=localStorage.getItem('username');
+document.querySelector(".team-name").textContent=localStorage.getItem('team')+" Team";
+document.addEventListener('DOMContentLoaded', async function () {
+    //Hide the associates list if Role is of an Associate
+    //Done ✅
+    let role = localStorage.getItem('role');
+    const associateList = document.querySelector('.sidebar');
+    if(role === "Associate") {
+        associateList.style.display = 'none';
+    }else{
 
-    // Dummy data for people list ❗
+    let response=await postData('/getAssociates', {team:localStorage.getItem('team'),role:"Associate"});
+    if(response.status){
     // Backend data will be used instead of this for list of all the associates in a particular team
-    const people = ['Person 1', 'Person 2', 'Person 3','Person 4'];
-
-    // Dummy data for table ❗
-    // Backend data will be used instead of this for list of coordinators/associates from a team who are assigned to or have completed a task.
-    const tableData = [
-        { sno: 1, name: 'John Doe', taskTitle:'Design the Holi Poster', status:'Assigned' },
-        { sno: 2, name: 'Jane Smith', taskTitle:'Create the writeup for diwali post', status:'Completed' },
-        { sno: 3, name: 'Bob Johnson', taskTitle:'Make a painting', status:'Uploaded' }
-    ];
-
+    const people = response.data.map(obj => obj.username);
     // Populate people list ❗
     const peopleList = document.getElementById('peopleList');
     people.forEach(person => {
@@ -31,6 +44,19 @@ document.addEventListener('DOMContentLoaded', function () {
         listItem.classList.add('list-group-item');
         peopleList.appendChild(listItem);
     });
+    }
+    else{
+        alert("Error in fetching associates");
+    }
+    }
+
+    // Dummy data for table ❗
+    // Backend data will be used instead of this for list of coordinators/associates from a team who are assigned to or have completed a task.
+    const tableData = [
+        { sno: 1, name: 'John Doe', taskTitle:'Design the Holi Poster', status:'Assigned' },
+        { sno: 2, name: 'Jane Smith', taskTitle:'Create the writeup for diwali post', status:'Completed' },
+        { sno: 3, name: 'Bob Johnson', taskTitle:'Make a painting', status:'Uploaded' }
+    ];
 
     // Populate table ❗
     const tableBody = document.getElementById('tableBody');
@@ -63,11 +89,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    //Hide the associates list if Role is of an Associate
-    //Done ✅
-    let role = "";
-    const associateList = document.querySelector('.sidebar');
-    if(role === "Associate") {
-        associateList.style.display = 'none';
-    }
+
 });

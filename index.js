@@ -101,11 +101,23 @@ app.post('/login',async (req, res) => {
     }
     // Login successful, set session variable
     req.session.user = user;
-    res.send({ message: "Login successful",role:user.role });
+    res.send({ message: "Login successful",role:user.role,team:user.team });
   } catch (error) {
     res.status(500).send({ message: "Failed to login" });
   }
  
+});
+
+//get associate of a particular team
+app.post('/getAssociates', async (req, res) => {
+  const { team, role } = req.body;
+  try {
+    const associates = await User.find({ team, role }).select("username");
+    res.status(200).send({ status: true, data: associates });
+  } catch (error) {
+    console.error("Error fetching associates:", error);
+    res.status(500).send({ status: false, message: "Error fetching associates" });
+  }
 });
 
 app.post('/logout', (req, res) => {

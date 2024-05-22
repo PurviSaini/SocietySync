@@ -4,12 +4,35 @@ document.getElementById('log-in-out').addEventListener('click', () => {
   })
     .then(response => {
       window.location.href="/"; 
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      localStorage.removeItem('team');
     })
     .catch(error => {
       alert("Error in logging out");
     });
 });
-const openTeam = () => {
+async function postData(url = "", data = {}) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), 
+    });
+    return await response.json(); 
+  }
+  
+//fill in logged in user details on the webpage
+  const username = localStorage.getItem('username');
+  const role = localStorage.getItem('role');
+  let team = localStorage.getItem('team');
+  document.getElementById('member-name').textContent =  document.getElementById('user-name').textContent= username;
+  document.getElementById('position').textContent = role;
+
+  //open specific team page on clicking team container
+const openTeam = (event) => {
+  localStorage.setItem("team",event.target.querySelector('p').textContent); 
   window.location.href = "/Team";
 }
 

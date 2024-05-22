@@ -4,18 +4,22 @@ document.getElementById('log-in-out').addEventListener('click', () => {
   })
     .then(response => {
       window.location.href="/";  
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      localStorage.removeItem('team');
+
     })
     .catch(error => {
       alert("Error in logging out");
     });
 });
+//fill in logged in user details on the webpage
+const username = localStorage.getItem('username');
+const role = localStorage.getItem('role');
+const team = localStorage.getItem('team');
+document.getElementById('member-name').textContent =  document.getElementById('user-name').textContent= username;
+document.getElementById('position').textContent =role + ", "+team+ " Team";;
 document.addEventListener("DOMContentLoaded", () => {
-
-// clicking log out button
-const logout = document.getElementById("log-in-out");
-logout.addEventListener("click", function () {
-  alert("Logged out!");
-});
 
 // ======================================================================
 // Dummy data for assigned tasks
@@ -100,14 +104,6 @@ notices.forEach(row => {
 })
 
 // ==============================================================================
-
-let role = "Associate";
-// role = "Coordinator";
-
-// writing position of member in page
-const position = document.getElementById("position");
-position.innerText = role;
-
 
 // Managind visibility of 'view members' button according to role
 const viewMembersButton = document.getElementById("view-members");
