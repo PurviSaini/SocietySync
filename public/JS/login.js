@@ -16,12 +16,16 @@ submitBtn.addEventListener('click', async (event) => {
     let data = { username, password};
     let response = await postData('/login', data);
     if (response.message === "Login successful") {
+    //set details in local storage
+    localStorage.setItem('username',username);
+    localStorage.setItem('role',response.role);
+    localStorage.setItem('team',response.team);
     alert(response.message);
     let role=response.role;
     if(role=="Associate"|| role=="Coordinator"){
         role="Member";
     }
-    window.location.href = `/${role}`;
+      window.location.href = `/${role}`;
     } else {
     alert("Login up failed. Please try again.");
     }

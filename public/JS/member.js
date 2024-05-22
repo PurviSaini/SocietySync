@@ -1,9 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
-// clicking log out button
-const logout = document.getElementById("log-in-out");
-logout.addEventListener("click", function () {
-  alert("Logged out!");
+document.getElementById('log-in-out').addEventListener('click', () => {
+  fetch('/logout', {
+    method: 'POST'
+  })
+    .then(response => {
+      window.location.href="/";  
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      localStorage.removeItem('team');
+
+    })
+    .catch(error => {
+      alert("Error in logging out");
+    });
 });
+//fill in logged in user details on the webpage
+const username = localStorage.getItem('username');
+const role = localStorage.getItem('role');
+const team = localStorage.getItem('team');
+document.getElementById('member-name').textContent =  document.getElementById('user-name').textContent= username;
+document.getElementById('position').textContent =role + ", "+team+ " Team";;
+document.addEventListener("DOMContentLoaded", () => {
 
 // ======================================================================
 // Dummy data for assigned tasks
@@ -31,9 +47,9 @@ const assigned_tasks = [
 // adding assigned tasks to task list under 'Assigned Tasks' 
 const taskList = document.getElementById("tasks-list");
 assigned_tasks.forEach((row) => {
-  taskList.innerHTML += `<div class="task"">
+  taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
     <h5 class="title">${row.title}</h5>
-  ${row.description}
+    <p class="desc">${row.description}</p>
 </div>`;
 });
 
@@ -88,14 +104,6 @@ notices.forEach(row => {
 })
 
 // ==============================================================================
-
-let role = "Associate";
-// role = "Coordinator";
-
-// writing position of member in page
-const position = document.getElementById("position");
-position.innerHTML = `<span>{ </span>${role}<span> }</span>`;
-
 
 // Managind visibility of 'view members' button according to role
 const viewMembersButton = document.getElementById("view-members");
