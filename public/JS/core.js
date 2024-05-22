@@ -44,7 +44,7 @@ colDiv.forEach(col => {
 })
 
 //function to upload the task in a variable ❗
-const uploadTask = () => {
+const uploadTask = async () => {
   // Get form data
   const taskTitle = document.getElementById('taskTitle').value;
   const taskDescription = document.getElementById('taskDescription').value;
@@ -56,9 +56,14 @@ const uploadTask = () => {
       description: taskDescription,
       team: team
   };
-
   // Log task object (you can do whatever you want with this data)
-  console.log('New Task:', task);
+  // console.log('New Task:', task);
+  let response=await postData("/uploadTask",task);
+  if(response.status){
+      alert("Task uploaded successfully");  
+  } else {  
+      alert("Error in uploading task");
+  }
 
   // Optionally, you can clear the form fields after submission
   document.getElementById('taskForm').reset();

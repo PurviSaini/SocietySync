@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const User = require('./models/User');
+const Task = require('./models/Task');
+
 require('dotenv').config();
 
 const app = express();
@@ -117,6 +119,47 @@ app.post('/getAssociates', async (req, res) => {
   } catch (error) {
     console.error("Error fetching associates:", error);
     res.status(500).send({ status: false, message: "Error fetching associates" });
+  }
+});
+
+//upload task by core member
+app.post("/uploadTask",async(req,res)=>{
+  const {title,description,team}=req.body;
+  try{
+    const task = new Task({title,description,team});
+    await task.save();
+    res.status(200).send({status:true});
+  }
+  catch(error){
+    console.error("Error uploading task:",error);
+    res.status(500).send({status:false});
+  }
+})
+
+app.post("/getTasks",async(req,res)=>{
+  const {team}=req.body;
+  try{
+    const tasks = await Task.find({ team: { $in: [team, "All"] } });
+    res.status(200).send({status:true,data:tasks});
+  }
+  catch(error){
+    console.error("Error fetching tasks:",error);
+    res.status(500).send({status:false});
+  }
+})
+
+// Delete task by ID
+app.delete("/deleteTask/:id", async (req, res) => {
+  const taskId = req.params.id;
+  try {
+    const deletedTask = await Task.findByIdAndDelete(taskId);
+    if (!deletedTask) {
+      return res.status(404).send({ message: "Task not found" });
+    }
+    res.status(200).send({ message: "Task deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    res.status(500).send({ message: "Failed to delete task" });
   }
 });
 
