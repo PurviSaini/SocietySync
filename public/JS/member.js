@@ -13,6 +13,16 @@ document.getElementById('log-in-out').addEventListener('click', () => {
       alert("Error in logging out");
     });
 });
+async function postData(url = "", data = {}) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data), 
+  });
+  return await response.json(); 
+}
 //fill in logged in user details on the webpage
 const username = localStorage.getItem('username');
 const role = localStorage.getItem('role');
@@ -23,56 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ======================================================================
 // Dummy data for assigned tasks
-const assigned_tasks = [
-  {
-    sno: 1,
-    title: "Title 1",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-  },
-  {
-    sno: 2,
-    title: "Title 2",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-  },
-  {
-    sno: 3,
-    title: "Title 3",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-  }
-];
-
-const upcoming_tasks = [
-  {
-    sno: 1,
-    title: "Title 1",
-    description:
-      "This is upcoming task 1. Dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates.",
-  },
-  {
-    sno: 2,
-    title: "Title 2",
-    description:
-      "This is upcoming task 2. Dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates.",
-  },
-  {
-    sno: 3,
-    title: "Title 3",
-    description:
-      "This is upcoming task 3. Dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates.",
-  }
-];
-
-// adding assigned tasks to task list under 'Assigned Tasks' 
-const taskList = document.getElementById("tasks-list");
-upcoming_tasks.forEach((row) => {
-  taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-    <h5 class="title">${row.title}</h5>
-    <p class="desc">${row.description}</p>
-</div>`;
-});
+let assigned_tasks = [];
+let upcoming_tasks = [];
 
 // ========================================================================================
 // functions to be performed after clicking 'Assigned Tasks'
@@ -154,12 +116,11 @@ else if(role == "Coordinator"){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SEEMRAN
-
-
-const taskBoxes = document.querySelectorAll(".task");
+function openTaskBox(taskBoxes){
 taskBoxes.forEach(taskBox => {
-  console.log("Entered taskBox");
   taskBox.addEventListener('click', () => {
+  console.log("Clicked taskBox");
+
     // Get modal title element
     const heading = taskBox.querySelector('.title').innerText;
     const content = taskBox.querySelector('.desc').innerText;
@@ -172,6 +133,8 @@ taskBoxes.forEach(taskBox => {
     modalBodyContent.textContent = content;
   });
 });
+}
+
 
 if(role==="Core") {
   document.getElementById('accept-btn').style.display="none";
@@ -214,5 +177,30 @@ const fillPeopleList = () => {
 
 //Open the second modal on clicking the assign btn ✅
 document.getElementById('assign-btn').addEventListener('click', fillPeopleList);
+
+//get all tasks of a team
+async function getTasks(){
+  let response=await postData('/getTasks', {team:localStorage.getItem('team')});
+  if(response.status){
+      let allTasks=response.data.map(obj => ({"title":obj.title,"description":obj.description,"status":obj.status,"assignedTo":obj.assignedTo}));
+      upcoming_tasks = allTasks.filter(task => task.status === "Uploaded");
+      assigned_tasks = allTasks.filter(task => task.status === "Assigned" && task.assignedTo === localStorage.getItem('username'));
+      const taskList = document.getElementById("tasks-list");
+          upcoming_tasks.forEach((row) => {
+            taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+              <h5 class="title">${row.title}</h5>
+              <p class="desc">${row.description}</p>
+          </div>`;
+          });
+          let taskBoxes = document.querySelectorAll(".task");
+          openTaskBox(taskBoxes);
+  }
+  else{
+      alert("Error in fetching tasks");
+  }
+
+}
+
+getTasks();
 
 });
