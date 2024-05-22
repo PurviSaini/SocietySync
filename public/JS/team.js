@@ -58,33 +58,73 @@ document.addEventListener('DOMContentLoaded', async function () {
         .then(response => {
           // Remove the task element from the DOM
           if(response.ok){
-            const taskElement = document.getElementById(taskId);
-            const deleteBtn = document.getElementById(taskId+'a');
-            deleteBtn.remove();
-            taskElement.remove();
+            const taskElement = document.querySelectorAll(`[data-group="${taskId}"]`);
+            taskElement.forEach(element => {
+              element.remove();
+            });
           }
           else{
-            alert("Error in deleting task");
+            alert("Error in deleting the task");
           }
         })
         .catch(error => {
-          alert("Error in deleting task");
+          console.log("Error in deleting task",error);
         });
     }
+
+    //show table data with tasks that are either assigned or completed
+    let tableData = [];
+    async function showTable(){
+      // Populate table ❗
+      const tableBody = document.getElementById('tableBody');
+      tableData.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+              <td>${row.sno}</td>
+              <td>${row.name}</td>
+              <td>${row.taskTitle}</td>
+              <td>${row.status}</td>
+          `;
+          tr.setAttribute("data-group",row["data-group"]); // Add class to the row element
+          tableBody.appendChild(tr);
+          const statusCell = tr.querySelector("td:nth-child(4)");
+          console.log(statusCell);
+          switch(statusCell.textContent) {
+            case 'Uploaded': statusCell.style.color="goldenrod";
+                             break;
+            case 'Assigned': statusCell.style.color="brown";
+                             break;
+            case 'Completed': statusCell.style.color="#579fab";
+                              break;
+        }
+      });
+   
+       }
     //get tasks of a team
     async function getTasks(){
         let response=await postData('/getTasks', {team:localStorage.getItem('team')});
         if(response.status){
-            let allTasks=response.data.map(obj => ({"title":obj.title,"description":obj.description,"id":obj._id}));
+            let allTasks=response.data.map(obj => ({"title":obj.title,"description":obj.description,"id":obj._id,"status":obj.status,"assignedTo":obj.assignedTo}));
                 // Populate all tasks of a team 
             const taskList = document.getElementById("tasks-list");
+            let sno=1;
             allTasks.forEach((row) => {
-            taskList.innerHTML += `<span class="deleteTask" id=${row.id+'a'} style="cursor:pointer">⛔</span><div class="task" id=${row.id} data-bs-toggle="modal" data-bs-target="#exampleModal1">
+            taskList.innerHTML += `<span class="deleteTask" data-group="${row.id}" style="cursor:pointer">⛔</span><div class="task" data-group="${row.id}" data-bs-toggle="modal" data-bs-target="#exampleModal1">
               <h5 class="title">${row.title} </h5>
               <p class="desc">${row.description}</p>
             </div>`;
+            if (row.status !== 'Uploaded') {
+              tableData.push({
+                sno: sno,
+                name: row.assignedTo,
+                taskTitle: row.title,
+                status: row.status,
+                "data-group": row.id
+              });
+              sno++;
+            }
             });
-
+            showTable();
             const taskBoxes = document.querySelectorAll(".task");
             // console.log(taskBoxes);
             taskBoxes.forEach(taskBox => {
@@ -106,8 +146,8 @@ document.addEventListener('DOMContentLoaded', async function () {
           let deleteTaskButtons = document.querySelectorAll('.deleteTask');
           deleteTaskButtons.forEach(button => {
             button.addEventListener('click', () => {
-              console.log("delete button clicked")
-              const taskId = button.id.slice(0, -1);
+              console.log("delete button clicked",button.getAttribute("data-group"));
+              const taskId =button.getAttribute("data-group");
               handleTaskDelete(taskId);
             });
           });
@@ -117,51 +157,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
     }
+
     getTasks();
-    
-
-
-
-
-    // Dummy data for table ❗
-    // Backend data will be used instead of this for list of coordinators/associates from a team who are assigned to or have completed a task.
-    const tableData = [
-        { sno: 1, name: 'John Doe', taskTitle:'Design the Holi Poster', status:'Assigned' },
-        { sno: 2, name: 'Jane Smith', taskTitle:'Create the writeup for diwali post', status:'Completed' },
-        { sno: 3, name: 'Bob Johnson', taskTitle:'Make a painting', status:'Uploaded' }
-    ];
-
-    // Populate table ❗
-    const tableBody = document.getElementById('tableBody');
-    tableData.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${row.sno}</td>
-            <td>${row.name}</td>
-            <td>${row.taskTitle}</td>
-            <td>${row.status}</td>
-        `;
-        tableBody.appendChild(tr);
-    });
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //assign color to status according to its value
-    //This is done ✅
-    const rows = tableBody.querySelectorAll('tr');
-    rows.forEach(row => {
-        const statusCell = row.querySelector("td:nth-child(4)");
-        console.log(statusCell);
-        switch(statusCell.textContent) {
-            case 'Uploaded': statusCell.style.color="goldenrod";
-                             break;
-            case 'Assigned': statusCell.style.color="brown";
-                             break;
-            case 'Completed': statusCell.style.color="#579fab";
-                              break;
-        }
-    })
-
-
 
 });

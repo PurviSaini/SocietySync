@@ -158,7 +158,7 @@ app.delete("/deleteTask/:id", async (req, res) => {
     }
     res.status(200).send({ message: "Task deleted successfully" });
   } catch (error) {
-    console.error("Error deleting task:", error);
+    console.error("Server Error deleting task:", error);
     res.status(500).send({ message: "Failed to delete task" });
   }
 });
