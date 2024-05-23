@@ -107,9 +107,25 @@ div.container div.task{
     color: #53311B;
     font-size: var(--bs-body-font-size);
     font-weight: 500;
+    cursor: pointer;
+}
+#upcoming-task{
+    color:yellow;
 }
 div.container div.task h5.title{
     color: #2790a2;
+}
+
+div.task button#btn-completed{
+    font-weight: 500;
+    border: none;
+    color: white;
+    background-color: forestgreen;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+div.task button#btn-completed:hover{
+    background-color:green;
 }
 
 div.column-2{
@@ -117,7 +133,7 @@ div.column-2{
 }
 
 div.column-2 div#notices{
-    background-color: #4dd0e7;
+    background-color:rgba(0, 255, 255, 0.071);
     padding: 20px;
     color: #562f15;
     font-weight: 500;

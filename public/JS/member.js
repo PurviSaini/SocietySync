@@ -41,11 +41,18 @@ let upcoming_tasks = [];
 const assignedTaskButton = document.getElementById("assigned-task");
 assignedTaskButton.addEventListener("click", function(){
     const taskList = document.getElementById("tasks-list");
+    this.style.color = "yellow";
+    upcomingTaskButton.style.color = "white";
     taskList.innerHTML  = "";
     assigned_tasks.forEach((row) => {
-      taskList.innerHTML += `<div class="task"">
-        <h5 class="title">${row.title}</h5>
-      ${row.description}
+      taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+      <div class="row">
+        <h5 class="title col">${row.title}</h5>
+        <div class="col" style="text-align: end">
+          <button id="btn-completed">Completed</button>
+        </div>
+      </div>
+      <p class="desc">${row.description}</p>
     </div>`;
     });
 })
@@ -54,6 +61,8 @@ assignedTaskButton.addEventListener("click", function(){
 const upcomingTaskButton = document.getElementById("upcoming-task");
 upcomingTaskButton.addEventListener("click", function(){
     const taskList = document.getElementById("tasks-list");
+    this.style.color = "yellow";
+    assignedTaskButton.style.color = "white";
     taskList.innerHTML  = "";
     upcoming_tasks.forEach((row) => {
       taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
