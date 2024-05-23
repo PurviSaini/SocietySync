@@ -149,7 +149,7 @@
           aria-hidden="true"
         >
           <div
-            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            class="notice-form-modal modal-dialog modal-dialog-centered modal-dialog-scrollable"
           >
             <div class="modal-content">
               <div class="modal-header">
@@ -172,7 +172,11 @@
               <label class="modal-body" for="notice-desc">
                 Description :
               </label>
-              <input type="text" name="notice-desc" id="notice-desc" />
+              <textarea   
+                      id="notice-desc"
+                      rows="3"
+                      required
+                    ></textarea>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary">Close</button>
                 <button type="button" class="btn btn-primary" id="addNotice">
