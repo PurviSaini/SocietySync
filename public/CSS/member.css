@@ -119,14 +119,16 @@ div.container div.task h5.title{
 div.task button#btn-completed{
     font-weight: 500;
     border: none;
-    color: white;
-    background-color: forestgreen;
+    color: green;
+    border:1px solid green;
     border-radius: 5px;
     transition: all 0.2s;
 }
-div.task button#btn-completed:hover{
-    background-color:green;
-}
+/* div.task button#btn-completed:hover{
+    background-color:rgb(47, 165, 47);
+    border:1px solid rgb(47, 165, 47);
+    color: white;
+} */
 
 div.column-2{
     padding: 30px;
