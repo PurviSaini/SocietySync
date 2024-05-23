@@ -65,8 +65,8 @@ upcomingTaskButton.addEventListener("click", function(){
     assignedTaskButton.style.color = "white";
     taskList.innerHTML  = "";
     upcoming_tasks.forEach((row) => {
-      taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-        <h5 class="title">${row.title}</h5>
+      taskList.innerHTML += `<div class="task" data-group="${row.id}" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+        <h5 class="title" data-group="${row.id}">${row.title}</h5>
       ${row.description}
     </div>`;
     });
@@ -127,8 +127,10 @@ else if(role == "Coordinator"){
 //SEEMRAN
 function openTaskBox(taskBoxes){
 taskBoxes.forEach(taskBox => {
-  taskBox.addEventListener('click', () => {
-  console.log("Clicked taskBox");
+  taskBox.addEventListener('click', (event) => {
+  console.log(event.target, "clicked")
+  taskClickedId=event.target.getAttribute('data-group');
+  console.log("taskid",taskClickedId);
 
     // Get modal title element
     const heading = taskBox.querySelector('.title').innerText;
@@ -152,10 +154,14 @@ if(role==="Coordinator") {
   document.getElementById('assign-btn').style.display="none";
 }
 
+
+let taskClickedId;
 //function for filling the second modal ❗
-const fillPeopleList = () => {
-  const people2 = ['Person 1', 'Person 2', 'Person 3', 'Person 4', 'Person 5'];
-  // Populate people list in the modal
+const fillPeopleList = async (event) => {
+  let response=await postData("/getCoordinates",{team:localStorage.getItem('team')});
+  if(response.status){
+    const people2 = response.data.map(obj=>obj.username);
+    // // Populate people list in the modal
   const peopleList2 = document.getElementById('peopleList2');
   peopleList2.innerHTML='';
   people2.forEach(person => {
@@ -173,32 +179,53 @@ const fillPeopleList = () => {
       radioDiv.appendChild(radioLabel);
       peopleList2.appendChild(radioDiv);
   });
-
-  // Function to submit form (you can customize this according to your needs) ❗
-  const submitForm = () => {
-      const form = document.getElementById('peopleForm');
-      const formData = new FormData(form);
-      const selectedPerson = formData.get('people');  //selectedPerson contains the name of the person who is assigned the task
-      console.log('Selected Person:', selectedPerson);
   }
-  document.getElementById('submit-people').addEventListener('click', submitForm);
+  else{
+    alert("Error in fetching coordinates");
+  }
 }
+ async function updateTaskStatus(selectedPerson){
+  let response=await postData("/updateTaskStatus",{assignedTo:selectedPerson,taskId:taskClickedId});
+    if(response.status){
+      alert("Task assigned successfully");
+      window.location.reload();
+
+    }else{
+      alert("Error in assigning task");
+    }
+ }
+  // Function to submit form (you can customize this according to your needs) ❗
+  const submitForm = async () => {
+    const form = document.getElementById('peopleForm');
+    const formData = new FormData(form);
+    const selectedPerson = formData.get('people');  //selectedPerson contains the name of the person who is assigned the task
+    console.log('Selected Person:', selectedPerson);
+
+    //set the status of the task to assigned
+    updateTaskStatus(selectedPerson);
+}
+document.getElementById('submit-people').addEventListener('click', submitForm);
+
 
 //Open the second modal on clicking the assign btn ✅
 document.getElementById('assign-btn').addEventListener('click', fillPeopleList);
+document.getElementById('accept-btn').addEventListener('click', () => {
+  updateTaskStatus(localStorage.getItem('username'));
+});
+
 
 //get all tasks of a team
 async function getTasks(){
   let response=await postData('/getTasks', {team:localStorage.getItem('team')});
   if(response.status){
-      let allTasks=response.data.map(obj => ({"title":obj.title,"description":obj.description,"status":obj.status,"assignedTo":obj.assignedTo}));
+      let allTasks=response.data.map(obj => ({"title":obj.title,"description":obj.description,"status":obj.status,"assignedTo":obj.assignedTo,"id":obj._id}));
       upcoming_tasks = allTasks.filter(task => task.status === "Uploaded");
       assigned_tasks = allTasks.filter(task => task.status === "Assigned" && task.assignedTo === localStorage.getItem('username'));
       const taskList = document.getElementById("tasks-list");
           upcoming_tasks.forEach((row) => {
-            taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-              <h5 class="title">${row.title}</h5>
-              <p class="desc">${row.description}</p>
+            taskList.innerHTML += `<div class="task" data-group="${row.id}" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+              <h5 class="title" data-group="${row.id}">${row.title}</h5>
+              <p class="desc" data-group="${row.id}">${row.description}</p>
           </div>`;
           });
           let taskBoxes = document.querySelectorAll(".task");

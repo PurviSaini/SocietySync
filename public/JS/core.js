@@ -50,16 +50,16 @@ const uploadTask = async () => {
   // Get form data
   const taskTitle = document.getElementById("taskTitle").value;
   const taskDescription = document.getElementById("taskDescription").value;
-  const team = document.getElementById("team").value;
-
+  let team = document.getElementById("team").value;
+  if (team === "All") {
+    team = ["Website","Public Relations","Event Management","Sponsor","Creative"]; 
+  }
   // Create task object
   const task = {
     title: taskTitle,
     description: taskDescription,
     team: team,
   };
-  // Log task object (you can do whatever you want with this data)
-  // console.log('New Task:', task);
   let response = await postData("/uploadTask", task);
   if (response.status) {
     alert("Task uploaded successfully");
