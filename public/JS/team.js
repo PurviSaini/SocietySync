@@ -100,6 +100,10 @@ document.addEventListener('DOMContentLoaded', async function () {
       });
    
        }
+
+    if(role==="Associate") {
+      document.getElementById("task-container").style.display="none";
+    }
     //get tasks of a team
     async function getTasks(){
         let response=await postData('/getTasks', {team:localStorage.getItem('team')});
