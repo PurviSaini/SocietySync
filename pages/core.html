@@ -28,14 +28,17 @@
     <nav class="d-flex justify-content-between align-items-center">
       <div id="user">
         <a href="#">
-          <span><i class="fa fa-user-circle p-2" style="font-size: 25px;"></i> <span id="user-name">Username</span></span>
+          <span
+            ><i class="fa fa-user-circle p-2" style="font-size: 25px"></i>
+            <span id="user-name">Username</span></span
+          >
         </a>
       </div>
       <!-- <div id="website-name">
         <h1>Society Sync</h1>
         <h5><i> Sync your societies with ease</i></h5>
       </div> -->
-     <a href="#"><button id="log-in-out">Log Out</button></a> 
+      <a href="#"><button id="log-in-out">Log Out</button></a>
     </nav>
 
     <div class="d-flex justify-content-between" id="div-cols">
@@ -50,30 +53,50 @@
         <div class="row teams">
           <h3>Teams</h3>
           <hr />
-          
+
           <div class="col">
-            <img src="https://video-public.canva.com/VAFQ9Q7X-vg/v/7a9c885b28.gif" alt="website logo" width="100rem">
+            <img
+              src="https://video-public.canva.com/VAFQ9Q7X-vg/v/7a9c885b28.gif"
+              alt="website logo"
+              width="100rem"
+            />
             <p>Website</p>
           </div>
-          
+
           <div class="col">
-            <img src=" https://video-public.canva.com/VAF-OkCwDFs/v/b8e956e6f8.gif" alt="PR logo" width="90rem">
+            <img
+              src=" https://video-public.canva.com/VAF-OkCwDFs/v/b8e956e6f8.gif"
+              alt="PR logo"
+              width="90rem"
+            />
             <p>Public Relations</p>
           </div>
 
           <div class="col">
-            <img src="https://video-public.canva.com/VAFOOhQQMGw/v/0191d03c39.gif" alt="PR logo" width="100rem">
+            <img
+              src="https://video-public.canva.com/VAFOOhQQMGw/v/0191d03c39.gif"
+              alt="PR logo"
+              width="100rem"
+            />
             <p>Sponsor</p>
           </div>
 
           <div class="w-100"></div>
           <div class="col">
-            <img src="https://video-public.canva.com/VAFoTJSPHs8/v/a2782558aa.gif" alt="PR logo" width="100rem">
+            <img
+              src="https://video-public.canva.com/VAFoTJSPHs8/v/a2782558aa.gif"
+              alt="PR logo"
+              width="100rem"
+            />
             <p>Creative</p>
           </div>
 
           <div class="col">
-            <img src="https://video-public.canva.com/VAFMXxid-ek/v/1413e3d1e5.gif" alt="PR logo" width="90rem">
+            <img
+              src="https://video-public.canva.com/VAFMXxid-ek/v/1413e3d1e5.gif"
+              alt="PR logo"
+              width="90rem"
+            />
             <p>Event Management</p>
           </div>
         </div>
@@ -85,9 +108,13 @@
         <div id="notices" class="row">
           <div class="notice-head d-flex justify-content-between">
             <h3 style="color: white">Notice Board</h3>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              ><i class="fa fa-plus-circle" style="font-size: 24px"></i
-            ></button>
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="fa fa-plus-circle" style="font-size: 24px"></i>
+            </button>
           </div>
           <ul id="notice-list">
             <!-- <li>
@@ -122,14 +149,18 @@
           aria-hidden="true"
         >
           <div
-            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            class="notice-form-modal modal-dialog modal-dialog-centered modal-dialog-scrollable"
           >
             <div class="modal-content">
               <div class="modal-header">
-                <label class="modal-title fs-5" for="notice-title" id="exampleModalLabel">
-                  Title: 
+                <label
+                  class="modal-title fs-5"
+                  for="notice-title"
+                  id="exampleModalLabel"
+                >
+                  Title:
                 </label>
-                <input type="text" name="notice-title" id="notice-title">
+                <input type="text" name="notice-title" id="notice-title" />
                 <button
                   type="button"
                   class="btn-close"
@@ -141,10 +172,16 @@
               <label class="modal-body" for="notice-desc">
                 Description :
               </label>
-              <input type="text" name="notice-desc" id="notice-desc">
+              <textarea   
+                      id="notice-desc"
+                      rows="3"
+                      required
+                    ></textarea>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary">Close</button>
-                <button type="button" class="btn btn-primary" id="addNotice">Add Notice</button>
+                <button type="button" class="btn btn-primary" id="addNotice">
+                  Add Notice
+                </button>
               </div>
             </div>
           </div>
@@ -152,42 +189,65 @@
 
         <!-- to add task for different team -->
         <div id="div-add-task" class="row">
-          <h3 class="mb-4">Add Task</h3>
-          <!-- <form action="#">
-            <div class="form-group row">
-              <label class="col" for="team">Team:</label>
-              <select class="col py-1" name="team" id="team">
-                <option selected>Choose...</option>
-                <option value="Website">Website</option>
-                <option value="Creative">Creative</option>
-                <option value="Sponsor">Sponsor</option>
-                <option value="PR">PR</option>
-              </select>
-            </div>
-            <br />
-          </form> -->
-          <button class="btn py-1 px-3" id="submit" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add Details</button>
+          <button
+            class="btn py-1 px-3"
+            id="submit"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal1"
+          >
+            Add Details
+          </button>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div
+          class="modal fade"
+          id="exampleModal1"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel1"
+          aria-hidden="true"
+        >
           <div class="modal-dialog">
-            <div class="task-add modal-content p-4" style="border-radius: 0; background-color: #9ed5df;">
+            <div
+              class="task-add modal-content p-4"
+              style="border-radius: 0; background-color: #9ed5df"
+            >
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel1" style="margin-left: 40%;">Task Form</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1
+                  class="modal-title fs-5"
+                  id="exampleModalLabel1"
+                  style="margin-left: 40%"
+                >
+                  Task Form
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
               <div class="modal-body task-add-body">
                 <form id="taskForm">
                   <div class="form-group">
                     <label for="taskTitle">Task Title: </label>
-                    <input type="text" class="form-control" id="taskTitle" required>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="taskTitle"
+                      required
+                    />
                   </div>
-                  <br>
+                  <br />
                   <div class="form-group">
                     <label for="taskDescription">Task Description: </label>
-                    <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
+                    <textarea
+                      class="form-control"
+                      id="taskDescription"
+                      rows="3"
+                      required
+                    ></textarea>
                   </div>
-                  <br>
+                  <br />
                   <div class="form-group">
                     <label for="team">Team: </label>
                     <select class="form-control" id="team" required>
@@ -203,7 +263,9 @@
                 </form>
               </div>
               <div class="modal-footer justify-content-center">
-                  <button type="submit" class="btn btn-primary" id="upload-task">Upload</button>
+                <button type="submit" class="btn btn-primary" id="upload-task">
+                  Upload
+                </button>
               </div>
             </div>
           </div>

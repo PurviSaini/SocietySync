@@ -114,7 +114,7 @@ div.column-2{
 }
 
 div.column-2 div#notices{
-    background-color: #4dd0e7;
+    background-color: rgba(0, 255, 255, 0.071);
     padding: 20px;
     color: #562f15;
     font-weight: 500;
@@ -138,10 +138,26 @@ div#notices div.notice-head button{
 div#notices div.notice-head button:hover{
     color:white;
 }
+div.notice-form-modal{
+    padding: 0 20px;
+}
+div.notice-form-modal label{
+    color:#53311B;
+    font-size: 19px;
+    font-weight: 500;
+}
 
+div.notice-form-modal input, textarea#notice-desc{
+    margin: 0 20px;
+}
 
 #notices ul{
     padding: 10px 30px;
+}
+div.delete-notice i.fa-minus-circle{
+    font-size: 16px;
+    color:rgb(188, 2, 2);
+    cursor: pointer;
 }
 
 div.column-2 div#div-add-task{
@@ -153,24 +169,13 @@ div.column-2 div#div-add-task{
     box-shadow: 0 0 10px grey;
 }
 
-div.column-2 div#div-add-task h3{
+#submit{
     background-color: #2790a2;
     padding: 5px 10px;
     border-radius: 5px;
     color: white;
-}
-
-div.column-2 div#div-add-task label{
-    color:#53311B;
+    font-size: 22px;
     font-weight: 500;
-    font-size: 20px;
-}
-
-#submit{
-    background-color: #2790a2;
-    border: none;
-    color: white;
-    border-radius: 5px;
 }
 #submit:hover{
     background-color:#238191;

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Member Page</title>
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="/public/CSS/member.css" />
     <!-- Link to fontawsome -->
@@ -29,7 +29,8 @@
     <nav class="d-flex justify-content-between align-items-center">
       <div id="user">
         <a href="#">
-          <i class="fa fa-user-circle p-2" style="font-size: 25px"></i><span id="user-name">Username</span>
+          <i class="fa fa-user-circle p-2" style="font-size: 25px"></i
+          ><span id="user-name">Username</span>
         </a>
       </div>
       <!-- <div id="website-name">
@@ -42,7 +43,7 @@
     </nav>
 
     <div class="d-flex justify-content-between" id="div-cols">
-        <!-- Left side elements -->
+      <!-- Left side elements -->
       <div class="column-1 col-8">
         <h2 class="py-2 px-3 mr-5">
           <i>Hi, <span id="member-name">Name Surname</span></i>
@@ -59,8 +60,18 @@
 
           <!-- List of tasks -->
           <div class="row px-3 tasks pt-4" id="tasks-list">
+            <!-- <div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+              <div class="row">
+                <h5 class="title col">Title</h5>
+                <div class="col" style="text-align: end">
+                  <button id="btn-completed">Completed</button>
+                </div>
+              </div>
+              <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
+              corrupti!</p>
+            </div> -->
             <!-- <div class="task"> -->
-                <!-- <h5 class="title">Title</h5>
+            <!-- <h5 class="title">Title</h5>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
               corrupti!
               <div class="assigned-to"></div>
@@ -82,34 +93,65 @@
       </div>
 
       <!-- Task Modal -->
-      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="exampleModal1"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel1"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel1">
                 <!-- Fill modal heading -->
               </h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div class="modal-body task-body">
               <!-- Fill modal content -->
             </div>
             <div class="modal-footer d-flex justify-content-between p-4">
-              <button type="button" class="btn btn-secondary" id="accept-btn">Accept</button>
-              <button type="button" class="btn btn-primary" id="assign-btn" data-bs-toggle="modal" data-bs-target="#exampleModal2">Assign</button>
+              <button type="button" class="btn btn-secondary" id="accept-btn">
+                Accept
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="assign-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal2"
+              >
+                Assign
+              </button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Assign to People Modal -->
-      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="exampleModal2"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel2"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered modal-sm">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel2">Select People</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </button>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div class="modal-body">
               <form id="peopleForm">
@@ -119,7 +161,14 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="submit-people" data-bs-dismiss="modal">Submit</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="submit-people"
+                data-bs-dismiss="modal"
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
@@ -127,7 +176,6 @@
 
       <!-- Right side elements -->
       <div class="column-2 col">
-
         <!-- Notice Board -->
         <div id="notices" class="row">
           <div class="notice-head d-flex justify-content-between">
