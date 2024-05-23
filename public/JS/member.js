@@ -56,7 +56,7 @@ upcomingTaskButton.addEventListener("click", function(){
     const taskList = document.getElementById("tasks-list");
     taskList.innerHTML  = "";
     upcoming_tasks.forEach((row) => {
-      taskList.innerHTML += `<div class="task"">
+      taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
         <h5 class="title">${row.title}</h5>
       ${row.description}
     </div>`;
