@@ -108,7 +108,7 @@ div.container div.task{
     font-size: var(--bs-body-font-size);
     font-weight: 500;
     cursor: pointer;
-    overflow: hidden;     /* Prevent the text from overflowing the container */
+    overflow: hidden;
     white-space: nowrap;
     height: 20vh;
 }
@@ -145,6 +145,11 @@ div.column-2 div#notices{
     overflow: scroll;
     max-height: 60%;
     box-shadow: 0 0 10px grey;
+}
+
+#notice-list li{
+    border-bottom: 1px solid blue;
+    padding: 10px;
 }
 
 div#notices div.notice-head{
@@ -202,6 +207,12 @@ div#notices div.notice-head{
 }
 
 #assign-btn {
+    background-color: brown;
+    color: white;
+    font-weight: bold;
+}
+
+#submit-people {
     background-color: brown;
     color: white;
     font-weight: bold;

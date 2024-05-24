@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,600");
 
-/* .navbar {
-    background-color: #98d4de;
-}
-
-.nav-el {
-    color: white;
-    font-weight: 600;
-    font-size: large;
-} */
-
 nav{
     text-align: center;
     color: #2790a2;
@@ -102,18 +92,7 @@ div.container div.given-tasks{
     text-align: center;
     cursor: pointer;
     font-size: 23px;
-    /* border-bottom: 1px solid #2790a2; */
 }
-
-/* div.container div.given-tasks a{
-    text-decoration: none;
-    color: white;
-    border-bottom: 2px solid white;
-    border-top: 2px solid transparent;
-    margin: 0 50px;
-    padding-bottom: 10px;
-    transition: background-color 0.2s, border-bottom 0.2s, border-top 0.2s;
-} */
 
 div.container div.given-tasks a:hover{
     border-bottom: 2px solid #2790a2;
@@ -130,7 +109,7 @@ div.task{
     cursor: pointer;
     font-size: var(--bs-body-font-size);
     font-weight: 500;
-    overflow: hidden;     /* Prevent the text from overflowing the container */
+    overflow: hidden;
     white-space: nowrap;
     height: 20vh;
 }

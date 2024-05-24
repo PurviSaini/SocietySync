@@ -144,19 +144,11 @@ div#notices div.notice-head button:hover{
     color:white;
 }
 
-/* div.notice-body {
-    height: 50vh;
-} */
-
 div.notice-form-modal label{
     color:#53311B;
     font-size: 19px;
     font-weight: 500;
 }
-
-/* div.notice-form-modal input, textarea#notice-desc{
-    margin: 0 20px;
-} */
 
 #notices ul{
     padding: 10px 30px;
