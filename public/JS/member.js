@@ -44,17 +44,19 @@ assignedTaskButton.addEventListener("click", function(){
     this.style.color = "yellow";
     upcomingTaskButton.style.color = "white";
     taskList.innerHTML  = "";
-    assigned_tasks.forEach((row) => {
-      taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+    assigned_tasks.forEach((row, index) => {
+      taskList.innerHTML += `<div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-index="${index}">
       <div class="row">
         <h5 class="title col">${row.title}</h5>
         <div class="col" style="text-align: end">
-          <button id="btn-completed">Completed</button>
+          <button class="btn-completed" data-id="${row.title}">Completed</button>
         </div>
       </div>
       <p class="desc">${row.description}</p>
     </div>`;
+    console.log("row title: ", document.querySelector(".task .row .title"));
     });
+    attachEventListeners();
 })
 
 // functions to be performed after clicking 'Assigned Tasks'
@@ -64,10 +66,10 @@ upcomingTaskButton.addEventListener("click", function(){
     this.style.color = "yellow";
     assignedTaskButton.style.color = "white";
     taskList.innerHTML  = "";
-    upcoming_tasks.forEach((row) => {
-      taskList.innerHTML += `<div class="task" data-group="${row.id}" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+    upcoming_tasks.forEach((row, index) => {
+      taskList.innerHTML += `<div class="task" data-group="${row.id}" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-index="${index}">
         <h5 class="title" data-group="${row.id}">${row.title}</h5>
-      ${row.description}
+      <p class="desc">${row.description}</p>
     </div>`;
     });
 })
@@ -125,27 +127,54 @@ else if(role == "Coordinator"){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SEEMRAN
-function openTaskBox(taskBoxes){
-taskBoxes.forEach(taskBox => {
-  taskBox.addEventListener('click', (event) => {
-  console.log(event.target, "clicked")
-  taskClickedId=event.target.getAttribute('data-group');
-  console.log("taskid",taskClickedId);
+// function openTaskBox(taskBoxes){
+// taskBoxes.forEach(taskBox => {
+//   taskBox.addEventListener('click', (event) => {
+//   console.log(event.target, "clicked")
+//   taskClickedId=event.target.getAttribute('data-group');
+//   console.log("taskid",taskClickedId);
 
-    // Get modal title element
-    const heading = taskBox.querySelector('.title').innerText;
-    const content = taskBox.querySelector('.desc').innerText;
-    const modalTitle = document.querySelector('.modal-title');
-    // Set modal title
-    modalTitle.textContent = heading;
-    // Get modal body content element
-    const modalBodyContent = document.querySelector('.modal-body');
-    // Set modal body content
-    modalBodyContent.textContent = content;
-  });
+//     // Get modal title element
+//     const heading = taskBox.querySelector('.title').innerText;
+//     const content = taskBox.querySelector('.desc').innerText;
+//     const modalTitle = document.querySelector('.modal-title');
+//     // Set modal title
+//     modalTitle.textContent = heading;
+//     // Get modal body content element
+//     const modalBodyContent = document.querySelector('.modal-body');
+//     // Set modal body content
+//     modalBodyContent.textContent = content;
+//     console.log("Modal heading: ",heading);
+//   });
+// });
+// }
+
+// const taskModal = document.getElementById("exampleModal1");
+// const modalBody = document.getElementById("modalBody");
+
+document.getElementById("exampleModal1").addEventListener('show.bs.modal', function (event) {
+  const button = event.relatedTarget; // Button that triggered the modal
+            const index = button.getAttribute('data-index'); // Extract info from data-* attributes
+            const item = upcoming_tasks[index]; // Use the index to get the right data
+
+            // Update the modal's content
+            const modalTitle = document.getElementById('exampleModalLabel1');
+            const modalBody = document.getElementById('modalBody1');
+            modalTitle.textContent = item.title;
+            modalBody.textContent = item.description;
 });
-}
 
+document.getElementById("exampleModal3").addEventListener('show.bs.modal', function (event) {
+  const button = event.relatedTarget; // Button that triggered the modal
+            const index = button.getAttribute('data-index'); // Extract info from data-* attributes
+            const item = assigned_tasks[index]; // Use the index to get the right data
+
+            // Update the modal's content
+            const modalTitle = document.getElementById('exampleModalLabel3');
+            const modalBody = document.getElementById('modalBody2');
+            modalTitle.textContent = item.title;
+            modalBody.textContent = item.description;
+});
 
 if(role==="Core") {
   document.getElementById('accept-btn').style.display="none";
@@ -212,7 +241,16 @@ document.getElementById('assign-btn').addEventListener('click', fillPeopleList);
 document.getElementById('accept-btn').addEventListener('click', () => {
   updateTaskStatus(localStorage.getItem('username'));
 });
-
+function attachEventListeners() {
+  const buttons = document.querySelectorAll('.btn-completed');
+  buttons.forEach(button => {
+      button.addEventListener('click', function() {
+          const taskId = this.getAttribute('data-id');
+          console.log('Marking task as complete:', taskId);
+          // Your logic to handle the button click
+      });
+  });
+}
 
 //get all tasks of a team
 async function getTasks(){
@@ -222,14 +260,14 @@ async function getTasks(){
       upcoming_tasks = allTasks.filter(task => task.status === "Uploaded");
       assigned_tasks = allTasks.filter(task => task.status === "Assigned" && task.assignedTo === localStorage.getItem('username'));
       const taskList = document.getElementById("tasks-list");
-          upcoming_tasks.forEach((row) => {
-            taskList.innerHTML += `<div class="task" data-group="${row.id}" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+          upcoming_tasks.forEach((row, index) => {
+            taskList.innerHTML += `<div class="task" data-group="${row.id}" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-index="${index}">
               <h5 class="title" data-group="${row.id}">${row.title}</h5>
               <p class="desc" data-group="${row.id}">${row.description}</p>
           </div>`;
           });
-          let taskBoxes = document.querySelectorAll(".task");
-          openTaskBox(taskBoxes);
+          // let taskBoxes = document.querySelectorAll(".task");
+          // openTaskBox(taskBoxes);
   }
   else{
       alert("Error in fetching tasks");
