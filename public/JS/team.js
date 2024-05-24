@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             taskElement.forEach(element => {
               element.remove();
             });
+            alert('Task deleted successfully');
           }
           else{
             alert("Error in deleting the task");
