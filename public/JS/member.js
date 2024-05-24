@@ -54,6 +54,7 @@ assignedTaskButton.addEventListener("click", function(){
       </div>
       <p class="desc">${row.description}</p>
     </div>`;
+    //data-id in button contains the title of the task for whom completed is clicked.
     console.log("row title: ", document.querySelector(".task .row .title"));
     });
     attachEventListeners();
@@ -127,6 +128,7 @@ else if(role == "Coordinator"){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SEEMRAN
+//🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩IGNORE
 // function openTaskBox(taskBoxes){
 // taskBoxes.forEach(taskBox => {
 //   taskBox.addEventListener('click', (event) => {
@@ -151,7 +153,9 @@ else if(role == "Coordinator"){
 
 // const taskModal = document.getElementById("exampleModal1");
 // const modalBody = document.getElementById("modalBody");
+//🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩IGNORE END
 
+//Modal for upcoming tasks
 document.getElementById("exampleModal1").addEventListener('show.bs.modal', function (event) {
   const button = event.relatedTarget; // Button that triggered the modal
             const index = button.getAttribute('data-index'); // Extract info from data-* attributes
@@ -164,6 +168,7 @@ document.getElementById("exampleModal1").addEventListener('show.bs.modal', funct
             modalBody.textContent = item.description;
 });
 
+//modal for assigned tasks
 document.getElementById("exampleModal3").addEventListener('show.bs.modal', function (event) {
   const button = event.relatedTarget; // Button that triggered the modal
             const index = button.getAttribute('data-index'); // Extract info from data-* attributes
@@ -241,6 +246,8 @@ document.getElementById('assign-btn').addEventListener('click', fillPeopleList);
 document.getElementById('accept-btn').addEventListener('click', () => {
   updateTaskStatus(localStorage.getItem('username'));
 });
+
+//function to handle completed button
 function attachEventListeners() {
   const buttons = document.querySelectorAll('.btn-completed');
   buttons.forEach(button => {
