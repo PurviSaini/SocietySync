@@ -88,35 +88,6 @@ else if(role == "Coordinator"){
 
 //=================================================================================
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//SEEMRAN
-//🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩IGNORE
-// function openTaskBox(taskBoxes){
-// taskBoxes.forEach(taskBox => {
-//   taskBox.addEventListener('click', (event) => {
-//   console.log(event.target, "clicked")
-//   taskClickedId=event.target.getAttribute('data-group');
-//   console.log("taskid",taskClickedId);
-
-//     // Get modal title element
-//     const heading = taskBox.querySelector('.title').innerText;
-//     const content = taskBox.querySelector('.desc').innerText;
-//     const modalTitle = document.querySelector('.modal-title');
-//     // Set modal title
-//     modalTitle.textContent = heading;
-//     // Get modal body content element
-//     const modalBodyContent = document.querySelector('.modal-body');
-//     // Set modal body content
-//     modalBodyContent.textContent = content;
-//     console.log("Modal heading: ",heading);
-//   });
-// });
-// }
-
-// const taskModal = document.getElementById("exampleModal1");
-// const modalBody = document.getElementById("modalBody");
-//🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩IGNORE END
-
 //Modal for upcoming tasks
 document.getElementById("exampleModal1").addEventListener('show.bs.modal', function (event) {
   const button = event.relatedTarget; // Button that triggered the modal
@@ -146,6 +117,9 @@ document.getElementById("exampleModal3").addEventListener('show.bs.modal', funct
             console.log('modal title: ',modalTitle);
 });
 
+//========================================================================================================
+
+// Permissions according to role
 if(role==="Core") {
   document.getElementById('accept-btn').style.display="none";
 }
@@ -153,6 +127,7 @@ if(role==="Coordinator") {
   document.getElementById('assign-btn').style.display="none";
 }
 
+//========================================================================================================
 
 let taskClickedId;
 //function for filling the second modal ❗
@@ -256,8 +231,6 @@ async function getTasks(){
               <p class="desc" data-group="${row.id}">${row.description}</p>
           </div>`;
           });
-          // let taskBoxes = document.querySelectorAll(".task");
-          // openTaskBox(taskBoxes);
   }
   else{
       alert("Error in fetching tasks");

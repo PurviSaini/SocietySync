@@ -134,7 +134,7 @@ deleteNoticeButtons.forEach((button) => {
     alert("Error in uploading notice");
   }
 
-
+  document.getElementById("notice-form").reset();
 });
 
 // Function to delete notice
