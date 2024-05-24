@@ -130,6 +130,9 @@ div.task{
     cursor: pointer;
     font-size: var(--bs-body-font-size);
     font-weight: 500;
+    overflow: hidden;     /* Prevent the text from overflowing the container */
+    white-space: nowrap;
+    height: 20vh;
 }
 
 div.task h5.title{

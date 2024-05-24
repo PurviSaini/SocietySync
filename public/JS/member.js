@@ -49,7 +49,7 @@ assignedTaskButton.addEventListener("click", function(){
       <div class="row">
         <h5 class="title col">${row.title}</h5>
         <div class="col" style="text-align: end">
-          <button class="btn-completed" data-id="${row.title}" data-group="${row.id}">Completed</button>
+          <button class="btn-completed" data-id="${row.title}" data-group="${row.id}" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">Completed</button>
         </div>
       </div>
       <p class="desc">${row.description}</p>
@@ -172,6 +172,7 @@ document.getElementById("exampleModal1").addEventListener('show.bs.modal', funct
 //modal for assigned tasks
 document.getElementById("exampleModal3").addEventListener('show.bs.modal', function (event) {
   const button = event.relatedTarget; // Button that triggered the modal
+  console.log('event target: ', button);
             const index = button.getAttribute('data-index'); // Extract info from data-* attributes
             const item = assigned_tasks[index]; // Use the index to get the right data
 
@@ -180,6 +181,7 @@ document.getElementById("exampleModal3").addEventListener('show.bs.modal', funct
             const modalBody = document.getElementById('modalBody2');
             modalTitle.textContent = item.title;
             modalBody.textContent = item.description;
+            console.log('modal title: ',modalTitle);
 });
 
 if(role==="Core") {
@@ -252,7 +254,8 @@ document.getElementById('accept-btn').addEventListener('click', () => {
 function attachEventListeners() {
   const buttons = document.querySelectorAll('.btn-completed');
   buttons.forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function(event) {
+      event.stopPropagation();
       const taskId = this.getAttribute('data-group');
       console.log('Marking task as complete:', taskId);
       // Your logic to handle the button click
