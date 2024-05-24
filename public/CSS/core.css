@@ -123,6 +123,11 @@ div.column-2 div#notices{
     box-shadow: 0 0 10px grey;
 }
 
+#notice-list li{
+border-bottom: 1px solid blue;
+padding: 10px;
+}
+
 div#notices div.notice-head{
     background-color: #2790a2;
     padding: 5px 10px;

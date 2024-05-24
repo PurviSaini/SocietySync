@@ -75,44 +75,6 @@ upcomingTaskButton.addEventListener("click", function(){
     });
 })
 
-// =================================================================================================
-// Dummy data for notices
-const notices = [
-    {
-        sno: 1,
-        title: "Title 1",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-      },
-      {
-        sno: 2,
-        title: "Title 2",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-      },
-      {
-        sno: 3,
-        title: "Title 3",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-      },
-      {
-        sno: 4,
-        title: "Title 4",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-      }
-    ]
-// adding notices to notice list in 'Notice Board'
-notices.forEach(row => {
-    document.getElementById("notice-list").innerHTML += `<li>
-    <h5 class="notice-title">${row.title}</h5>
-    ${row.description}
-  </li>
-  <hr />`
-})
-
-// ==============================================================================
 
 // Managind visibility of 'view members' button according to role
 const viewMembersButton = document.getElementById("view-members");
@@ -304,5 +266,34 @@ async function getTasks(){
 }
 
 getTasks();
+
+async function getNotices(){
+  let response=await postData("/getNotices"); 
+  console.log("responsefrom server: ",response)
+  if(response.status){
+  // adding notices to notice list in 'Notice Board'
+  response.data.map((row) => {
+    document.getElementById("notice-list").innerHTML += `<li>
+      <div class="row">
+                  <h5 class="notice-title col">${row.title}</h5>
+                  <div class="col delete-notice" data-noticeId=${row._id} style="text-align: end">
+                    <i class="fa fa-minus-circle"></i>
+                  </div>
+                </div>
+      ${row.description}
+    </li>`;
+  });
+  deleteNoticeButtons= document.querySelectorAll(".delete-notice");
+
+  deleteNoticeButtons.forEach((button) => {
+    button.addEventListener("click", deleteNotice);
+  });
+  }
+else{
+  alert("Error in getting notices");
+}
+
+}
+getNotices();
 
 });
