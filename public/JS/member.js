@@ -49,7 +49,7 @@ assignedTaskButton.addEventListener("click", function(){
       <div class="row">
         <h5 class="title col">${row.title}</h5>
         <div class="col" style="text-align: end">
-          <button class="btn-completed" data-id="${row.title}" data-group="${row.id}" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">Completed</button>
+          <button class="btn-completed" data-id="${row.title}" data-group="${row.id}" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">Mark as Complete</button>
         </div>
       </div>
       <p class="desc">${row.description}</p>
@@ -277,7 +277,6 @@ async function getNotices(){
       <div class="row">
                   <h5 class="notice-title col">${row.title}</h5>
                   <div class="col delete-notice" data-noticeId=${row._id} style="text-align: end">
-                    <i class="fa fa-minus-circle"></i>
                   </div>
                 </div>
       ${row.description}
