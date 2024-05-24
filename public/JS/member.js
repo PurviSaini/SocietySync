@@ -49,7 +49,7 @@ assignedTaskButton.addEventListener("click", function(){
       <div class="row">
         <h5 class="title col">${row.title}</h5>
         <div class="col" style="text-align: end">
-          <button class="btn-completed" data-id="${row.title}">Completed</button>
+          <button class="btn-completed" data-id="${row.title}" data-group="${row.id}">Completed</button>
         </div>
       </div>
       <p class="desc">${row.description}</p>
@@ -160,7 +160,8 @@ document.getElementById("exampleModal1").addEventListener('show.bs.modal', funct
   const button = event.relatedTarget; // Button that triggered the modal
             const index = button.getAttribute('data-index'); // Extract info from data-* attributes
             const item = upcoming_tasks[index]; // Use the index to get the right data
-
+              taskClickedId=event.relatedTarget.getAttribute('data-group');
+              console.log("taskid",taskClickedId);
             // Update the modal's content
             const modalTitle = document.getElementById('exampleModalLabel1');
             const modalBody = document.getElementById('modalBody1');
@@ -219,7 +220,7 @@ const fillPeopleList = async (event) => {
   }
 }
  async function updateTaskStatus(selectedPerson){
-  let response=await postData("/updateTaskStatus",{assignedTo:selectedPerson,taskId:taskClickedId});
+  let response=await postData("/assignTask",{assignedTo:selectedPerson,taskId:taskClickedId});
     if(response.status){
       alert("Task assigned successfully");
       window.location.reload();
@@ -251,11 +252,28 @@ document.getElementById('accept-btn').addEventListener('click', () => {
 function attachEventListeners() {
   const buttons = document.querySelectorAll('.btn-completed');
   buttons.forEach(button => {
-      button.addEventListener('click', function() {
-          const taskId = this.getAttribute('data-id');
-          console.log('Marking task as complete:', taskId);
-          // Your logic to handle the button click
+    button.addEventListener('click', function() {
+      const taskId = this.getAttribute('data-group');
+      console.log('Marking task as complete:', taskId);
+      // Your logic to handle the button click
+      // Send an update request with the taskId
+      fetch(`/updateTaskStatus/${taskId}`, {
+        method: 'PUT',
+      })
+      .then(response => {
+        // Remove the task element from the DOM
+        if(response.ok){
+          alert("Task marked as completed");
+          window.location.reload();
+        }
+        else{
+          alert("Task not marked as completed");
+        }
+      })
+      .catch(error => {
+        console.log("Error in marking task as complete",error);
       });
+    });
   });
 }
 

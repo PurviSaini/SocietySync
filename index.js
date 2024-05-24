@@ -182,13 +182,24 @@ app.post("/getCoordinates",async(req,res)=>{
   }
 });
 
-app.post("/updateTaskStatus",async(req,res)=>{
+app.post("/assignTask",async(req,res)=>{
   const {assignedTo,taskId}=req.body;
   try{
     await Task.findByIdAndUpdate(taskId,{status:"Assigned",assignedTo});
     res.status(200).send({status:true});
   }catch{
     console.error("Error updating task status:",error);
+    res.status(500).send({status:false});
+  }
+});
+
+app.put("/updateTaskStatus/:id",async(req,res)=>{
+  const taskId=req.params.id;
+  try{
+    await Task.findByIdAndUpdate(taskId,{status:"Completed"});
+    res.status(200).send({status:true});
+  }catch{
+    console.error("Error updating task:",error);
     res.status(500).send({status:false});
   }
 });
