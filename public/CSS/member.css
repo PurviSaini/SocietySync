@@ -103,13 +103,17 @@ div.container div.task{
     cursor: pointer;
     overflow: hidden;
     white-space: nowrap;
-    height: 20vh;
+    /* height: 20vh; */
 }
 #upcoming-task{
     color:yellow;
 }
 div.container div.task h5.title{
     color: #2790a2;
+}
+
+p.desc{
+    margin-bottom: 0;
 }
 
 div.task button.btn-completed{

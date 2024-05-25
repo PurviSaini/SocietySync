@@ -47,7 +47,7 @@
           <i>Hi, <span id="member-name">Name Surname</span></i>
         </h2>
         <hr />
-        <h4 id="position"><span>{ </span>Core<span> }</span></h4>
+        <h4 id="position"></h4>
         <!-- Teams Container -->
         <div class="row teams">
           <h3>Teams</h3>
@@ -104,7 +104,7 @@
       <!-- Right Side elements(notices, add tasks) -->
       <div class="column-2 col-4">
         <!-- Notice Board -->
-        <div id="notices" class="row">
+        <div id="notices">
           <div class="notice-head d-flex justify-content-between">
             <h3 style="color: white">Notice Board</h3>
             <button
@@ -118,6 +118,18 @@
           <ul id="notice-list">
             <!-- Populate Notice Board -->
           </ul>
+        </div>
+
+        <!-- Button to add task for different teams -->
+        <div id="div-add-task">
+          <button
+            class="btn py-1 px-3"
+            id="submit"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal1"
+          >
+            Add Task
+          </button>
         </div>
 
         <!-- Modal to add notice to notice board -->
@@ -184,18 +196,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Button to add task for different teams -->
-        <div id="div-add-task" class="row">
-          <button
-            class="btn py-1 px-3"
-            id="submit"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal1"
-          >
-            Add Task
-          </button>
         </div>
 
         <!-- Modal for adding task -->

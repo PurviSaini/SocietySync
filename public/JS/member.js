@@ -28,7 +28,8 @@ const username = localStorage.getItem('username');
 const role = localStorage.getItem('role');
 const team = localStorage.getItem('team');
 document.getElementById('member-name').textContent =  document.getElementById('user-name').textContent= username;
-document.getElementById('position').textContent =role + ", "+team+ " Team";;
+document.getElementById('position').innerHTML =`<span>{ </span>${role + ", "+team} Team<span> }</span>`;
+
 document.addEventListener("DOMContentLoaded", () => {
 
 // to store assigned tasks and assigned tasks
