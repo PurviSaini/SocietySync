@@ -112,7 +112,7 @@ div.column-2 div#notices{
     padding: 20px;
     color: #562f15;
     font-weight: 500;
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 50%;
     box-shadow: 0 0 10px grey;
 }
