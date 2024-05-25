@@ -1,3 +1,16 @@
+// store assigned tasks and assigned tasks
+let assigned_tasks = [];
+let upcoming_tasks = [];
+let taskClickedId;
+
+//fill in logged in user details on the webpage
+const username = localStorage.getItem('username');
+const role = localStorage.getItem('role');
+const team = localStorage.getItem('team');
+document.getElementById('member-name').textContent =  document.getElementById('user-name').textContent= username;
+document.getElementById('position').innerHTML =`<span>{ </span>${role + ", "+team} Team<span> }</span>`;
+
+//logOut
 document.getElementById('log-in-out').addEventListener('click', () => {
   fetch('/logout', {
     method: 'POST'
@@ -23,20 +36,27 @@ async function postData(url = "", data = {}) {
   });
   return await response.json(); 
 }
-//fill in logged in user details on the webpage
-const username = localStorage.getItem('username');
-const role = localStorage.getItem('role');
-const team = localStorage.getItem('team');
-document.getElementById('member-name').textContent =  document.getElementById('user-name').textContent= username;
-document.getElementById('position').innerHTML =`<span>{ </span>${role + ", "+team} Team<span> }</span>`;
 
 document.addEventListener("DOMContentLoaded", () => {
 
-// to store assigned tasks and assigned tasks
-let assigned_tasks = [];
-let upcoming_tasks = [];
+// Managing visibility of 'view members' button according to role
+const viewMembersButton = document.getElementById("view-members");
+if(role == "Associate"){
+  viewMembersButton.style.display = "block";
+}
+else if(role == "Coordinator"){
+  viewMembersButton.style.display = "none";
+  document.getElementById("notices").style.minHeight = '100%';
+}
 
-// ========================================================================================
+// Permissions according to role
+if(role==="Core") {
+  document.getElementById('accept-btn').style.display="none";
+}
+if(role==="Coordinator") {
+  document.getElementById('assign-btn').style.display="none";
+}
+
 // functions to be performed after clicking 'Assigned Tasks'
 const assignedTaskButton = document.getElementById("assigned-task");
 assignedTaskButton.addEventListener("click", function(){
@@ -55,7 +75,6 @@ assignedTaskButton.addEventListener("click", function(){
       <p class="desc">${row.description}</p>
     </div>`;
     //data-id in button contains the title of the task for whom completed is clicked.
-    console.log("row title: ", document.querySelector(".task .row .title"));
     });
     attachEventListeners();
 })
@@ -73,18 +92,7 @@ upcomingTaskButton.addEventListener("click", function(){
       <p class="desc">${row.description}</p>
     </div>`;
     });
-})
-
-
-// Managing visibility of 'view members' button according to role
-const viewMembersButton = document.getElementById("view-members");
-if(role == "Associate"){
-  viewMembersButton.style.display = "block";
-}
-else if(role == "Coordinator"){
-  viewMembersButton.style.display = "none";
-  document.getElementById("notices").style.minHeight = '100%';
-}
+});
 
 //Modal for upcoming tasks
 document.getElementById("exampleModal1").addEventListener('show.bs.modal', function (event) {
@@ -92,7 +100,6 @@ document.getElementById("exampleModal1").addEventListener('show.bs.modal', funct
             const index = button.getAttribute('data-index'); // Extract info from data-* attributes
             const item = upcoming_tasks[index]; // Use the index to get the right data
               taskClickedId=event.relatedTarget.getAttribute('data-group');
-              console.log("taskid",taskClickedId);
             // Update the modal's content
             const modalTitle = document.getElementById('exampleModalLabel1');
             const modalBody = document.getElementById('modalBody1');
@@ -103,7 +110,6 @@ document.getElementById("exampleModal1").addEventListener('show.bs.modal', funct
 //modal for assigned tasks
 document.getElementById("exampleModal3").addEventListener('show.bs.modal', function (event) {
   const button = event.relatedTarget; // Button that triggered the modal
-  console.log('event target: ', button);
             const index = button.getAttribute('data-index'); // Extract info from data-* attributes
             const item = assigned_tasks[index]; // Use the index to get the right data
 
@@ -112,19 +118,8 @@ document.getElementById("exampleModal3").addEventListener('show.bs.modal', funct
             const modalBody = document.getElementById('modalBody2');
             modalTitle.textContent = item.title;
             modalBody.textContent = item.description;
-            console.log('modal title: ',modalTitle);
 });
 
-// Permissions according to role
-if(role==="Core") {
-  document.getElementById('accept-btn').style.display="none";
-}
-if(role==="Coordinator") {
-  document.getElementById('assign-btn').style.display="none";
-}
-
-
-let taskClickedId;
 // function for filling the second modal ❗
 const fillPeopleList = async (event) => {
   let response=await postData("/getCoordinates",{team:localStorage.getItem('team')});
@@ -153,6 +148,8 @@ const fillPeopleList = async (event) => {
     alert("Error in fetching coordinates");
   }
 }
+
+//function to assign task to a person
  async function updateTaskStatus(selectedPerson){
   let response=await postData("/assignTask",{assignedTo:selectedPerson,taskId:taskClickedId});
     if(response.status){
@@ -168,7 +165,6 @@ const fillPeopleList = async (event) => {
     const form = document.getElementById('peopleForm');
     const formData = new FormData(form);
     const selectedPerson = formData.get('people');  //selectedPerson contains the name of the person who is assigned the task
-    console.log('Selected Person:', selectedPerson);
 
     //set the status of the task to assigned
     updateTaskStatus(selectedPerson);
@@ -189,8 +185,6 @@ function attachEventListeners() {
     button.addEventListener('click', function(event) {
       event.stopPropagation();
       const taskId = this.getAttribute('data-group');
-      console.log('Marking task as complete:', taskId);
-      // Your logic to handle the button click
       // Send an update request with the taskId
       fetch(`/updateTaskStatus/${taskId}`, {
         method: 'PUT',
@@ -206,7 +200,7 @@ function attachEventListeners() {
         }
       })
       .catch(error => {
-        console.log("Error in marking task as complete",error);
+        alert("Error in marking task as complete");
       });
     });
   });
@@ -230,37 +224,27 @@ async function getTasks(){
   else{
       alert("Error in fetching tasks");
   }
-
 }
 
-getTasks();
-
+//get all the notices
 async function getNotices(){
   let response=await postData("/getNotices"); 
-  console.log("responsefrom server: ",response)
   if(response.status){
   // adding notices to notice list in 'Notice Board'
   response.data.map((row) => {
     document.getElementById("notice-list").innerHTML += `<li>
       <div class="row">
                   <h5 class="notice-title col">${row.title}</h5>
-                  <div class="col delete-notice" data-noticeId=${row._id} style="text-align: end">
-                  </div>
                 </div>
       ${row.description}
     </li>`;
-  });
-  deleteNoticeButtons= document.querySelectorAll(".delete-notice");
-
-  deleteNoticeButtons.forEach((button) => {
-    button.addEventListener("click", deleteNotice);
   });
   }
 else{
   alert("Error in getting notices");
 }
-
 }
-getNotices();
 
+getNotices();
+getTasks();
 });

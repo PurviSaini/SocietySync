@@ -95,7 +95,6 @@ app.post('/login',async (req, res) => {
     if (!user) {
       return res.status(401).send({ title: "User not Found" });
     }
-
     // Compare hashed password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -110,7 +109,7 @@ app.post('/login',async (req, res) => {
  
 });
 
-//get associate of a particular team
+//get associates of a particular team
 app.post('/getAssociates', async (req, res) => {
   const { team, role } = req.body;
   try {
@@ -143,6 +142,7 @@ app.post("/uploadTask",async(req,res)=>{
   }
 })
 
+//upload notice by core 
 app.post("/uploadNotice",async(req,res)=>{
   const {title,description}=req.body;
   try{
@@ -156,6 +156,7 @@ app.post("/uploadNotice",async(req,res)=>{
   }
 });
 
+//display tasks
 app.post("/getTasks",async(req,res)=>{
   const {team}=req.body;
   try{
@@ -168,6 +169,7 @@ app.post("/getTasks",async(req,res)=>{
   }
 })
 
+//get Notices
 app.post("/getNotices",async(req,res)=>{
   try{
     const notices = await Notice.find();
@@ -194,6 +196,7 @@ app.delete("/deleteTask/:id", async (req, res) => {
   }
 });
 
+//Delete notice
 app.delete("/deleteNotice/:id", async (req, res) => {
   const noticeId = req.params.id;
   try {
@@ -208,6 +211,7 @@ app.delete("/deleteNotice/:id", async (req, res) => {
   }
 });
 
+//get list of coordinates
 app.post("/getCoordinates",async(req,res)=>{
   const {team}=req.body;
   try{
@@ -220,6 +224,7 @@ app.post("/getCoordinates",async(req,res)=>{
   }
 });
 
+//assign Task
 app.post("/assignTask",async(req,res)=>{
   const {assignedTo,taskId}=req.body;
   try{
@@ -231,6 +236,7 @@ app.post("/assignTask",async(req,res)=>{
   }
 });
 
+//mark task as completed
 app.put("/updateTaskStatus/:id",async(req,res)=>{
   const taskId=req.params.id;
   try{
@@ -242,6 +248,7 @@ app.put("/updateTaskStatus/:id",async(req,res)=>{
   }
 });
 
+//log out
 app.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {

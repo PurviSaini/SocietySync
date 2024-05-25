@@ -1,3 +1,15 @@
+let deleteNoticeButtons;
+
+//fill in logged in user details on the webpage
+const username = localStorage.getItem("username");
+const role = localStorage.getItem("role");
+let team = localStorage.getItem("team");
+document.getElementById("member-name").textContent = document.getElementById(
+  "user-name"
+).textContent = username;
+document.getElementById("position").innerHTML = `<span>{ </span>${role}<span> }</span>`;
+
+//logOut
 document.getElementById("log-in-out").addEventListener("click", () => {
   fetch("/logout", {
     method: "POST",
@@ -23,15 +35,6 @@ async function postData(url = "", data = {}) {
   return await response.json();
 }
 
-//fill in logged in user details on the webpage
-const username = localStorage.getItem("username");
-const role = localStorage.getItem("role");
-let team = localStorage.getItem("team");
-document.getElementById("member-name").textContent = document.getElementById(
-  "user-name"
-).textContent = username;
-document.getElementById("position").innerHTML = `<span>{ </span>${role}<span> }</span>`;
-
 //open specific team page on clicking team container
 const openTeam = (event) => {
   localStorage.setItem("team", event.target.querySelector("p").textContent);
@@ -45,7 +48,7 @@ colDiv.forEach((col) => {
   col.addEventListener("click", openTeam);
 });
 
-//function to upload the task in a variable ❗
+//function to upload the task ❗
 const uploadTask = async () => {
   // Get form data
   const taskTitle = document.getElementById("taskTitle").value;
@@ -60,25 +63,22 @@ const uploadTask = async () => {
     description: taskDescription,
     team: team,
   };
+  //send data to server
   let response = await postData("/uploadTask", task);
   if (response.status) {
     alert("Task uploaded successfully");
   } else {
     alert("Error in uploading task");
   }
-
   // Optionally, you can clear the form fields after submission
   document.getElementById("taskForm").reset();
 };
-
+// Add event listener to the upload task button
 document.getElementById("upload-task").addEventListener("click", uploadTask);
 
-
-let deleteNoticeButtons;
-// Function to add notice
+// Function to get notices
 async function getNotices(){
   let response=await postData("/getNotices"); 
-  console.log("responsefrom server: ",response)
   if(response.status){
   // adding notices to notice list in 'Notice Board'
   response.data.map((row) => {
@@ -93,7 +93,6 @@ async function getNotices(){
     </li>`;
   });
   deleteNoticeButtons= document.querySelectorAll(".delete-notice");
-
   deleteNoticeButtons.forEach((button) => {
     button.addEventListener("click", deleteNotice);
   });
@@ -101,17 +100,15 @@ async function getNotices(){
 else{
   alert("Error in getting notices");
 }
-
 }
-getNotices();
+
 // upload notice
 const addNotice = document.getElementById("addNotice");
 addNotice.addEventListener("click", async function () {
   const noticeTitle = document.getElementById("notice-title").value;
   const noticeDescription = document.getElementById("notice-desc").value;
-  console.log(noticeTitle, noticeDescription);
 
-  //add notice to db
+  //send notice to server
   let response=await postData("/uploadNotice",{title:noticeTitle,description:noticeDescription});
   if(response.status){
     alert("Notice uploaded successfully");
@@ -125,7 +122,6 @@ addNotice.addEventListener("click", async function () {
     ${noticeDescription}
     </li>`;
 deleteNoticeButtons= document.querySelectorAll(".delete-notice");
-
 deleteNoticeButtons.forEach((button) => {
   button.addEventListener("click", deleteNotice);
 });
@@ -133,14 +129,12 @@ deleteNoticeButtons.forEach((button) => {
   else{
     alert("Error in uploading notice");
   }
-
   document.getElementById("notice-form").reset();
 });
 
 // Function to delete notice
 const deleteNotice = (event) => {
   const noticeId = event.target.parentElement.getAttribute("data-noticeId");
-  console.log(event.target.parentElement.parentElement.parentElement);
 
   // Make a request to delete notice with the given noticeId
   fetch(`/deleteNotice/${noticeId}`, {
@@ -150,7 +144,6 @@ const deleteNotice = (event) => {
       if (response.status) {
         // Remove the notice from the DOM
         event.target.parentElement.parentElement.parentElement.remove();
-
         alert("Notice deleted successfully");
       } else {
         alert("Error in deleting notice");
@@ -160,3 +153,6 @@ const deleteNotice = (event) => {
       alert("Error in deleting notice");
     });
 };
+
+getNotices();
+
