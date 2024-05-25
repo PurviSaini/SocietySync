@@ -4,21 +4,13 @@ body{
     font-family: 'Raleway', sans-serif;
 }
 
+/* HEADER(navbar) */
 nav{
     text-align: center;
     color: #2790a2;
     background-color: rgb(152, 212, 222, 0.7);
     padding: 5px 10px 10px;
     align-items: center;
-    /* box-shadow: 0 0 5px grey; */
-}
-
-nav #website-name h1{
-    font-size: 3.3em;
-    font-weight: 700;
-}
-nav #website-name h5{
-    color: #53311B;
 }
 
 div#user a{
@@ -46,6 +38,8 @@ div#log-in-out a:hover{
     background-color:#3593a4;
     color: white;
 }
+
+/* Right partition of page(name, position and tasks) */
 div.column-1{
     padding: 30px 10px 30px 30px;
     margin-right: 5px;
@@ -80,7 +74,6 @@ div.container div.given-tasks{
     text-align: center;
     cursor: pointer;
     font-size: 23px;
-    /* border-bottom: 1px solid #2790a2; */
 }
 
 div.container div.given-tasks a{
@@ -127,12 +120,13 @@ div.task button.btn-completed{
     border-radius: 5px;
     transition: all 0.2s;
 }
-/* div.task button#btn-completed:hover{
-    background-color:rgb(47, 165, 47);
-    border:1px solid rgb(47, 165, 47);
+div.task button.btn-completed:hover{
+    background-color:green;
+    border:1px solid green;
     color: white;
-} */
+}
 
+/* Left partition of page(notices, view memebers) */
 div.column-2{
     padding: 30px;
 }
@@ -143,12 +137,11 @@ div.column-2 div#notices{
     color: #562f15;
     font-weight: 500;
     overflow: scroll;
-    max-height: 60%;
     box-shadow: 0 0 10px grey;
 }
 
 #notice-list li{
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid rgba(0, 166, 255, 0.507);
     padding: 10px;
 }
 
@@ -156,8 +149,8 @@ div#notices div.notice-head{
     background-color: #2790a2;
     padding: 5px 10px;
     border-radius: 5px;
+    color: white
 }
-
 
 #notices ul{
     padding: 10px 30px;

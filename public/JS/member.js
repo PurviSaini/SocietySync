@@ -31,8 +31,7 @@ document.getElementById('member-name').textContent =  document.getElementById('u
 document.getElementById('position').textContent =role + ", "+team+ " Team";;
 document.addEventListener("DOMContentLoaded", () => {
 
-// ======================================================================
-// Dummy data for assigned tasks
+// to store assigned tasks and assigned tasks
 let assigned_tasks = [];
 let upcoming_tasks = [];
 
@@ -76,7 +75,7 @@ upcomingTaskButton.addEventListener("click", function(){
 })
 
 
-// Managind visibility of 'view members' button according to role
+// Managing visibility of 'view members' button according to role
 const viewMembersButton = document.getElementById("view-members");
 if(role == "Associate"){
   viewMembersButton.style.display = "block";
@@ -85,8 +84,6 @@ else if(role == "Coordinator"){
   viewMembersButton.style.display = "none";
   document.getElementById("notices").style.minHeight = '100%';
 }
-
-//=================================================================================
 
 //Modal for upcoming tasks
 document.getElementById("exampleModal1").addEventListener('show.bs.modal', function (event) {
@@ -117,8 +114,6 @@ document.getElementById("exampleModal3").addEventListener('show.bs.modal', funct
             console.log('modal title: ',modalTitle);
 });
 
-//========================================================================================================
-
 // Permissions according to role
 if(role==="Core") {
   document.getElementById('accept-btn').style.display="none";
@@ -127,15 +122,14 @@ if(role==="Coordinator") {
   document.getElementById('assign-btn').style.display="none";
 }
 
-//========================================================================================================
 
 let taskClickedId;
-//function for filling the second modal ❗
+// function for filling the second modal ❗
 const fillPeopleList = async (event) => {
   let response=await postData("/getCoordinates",{team:localStorage.getItem('team')});
   if(response.status){
     const people2 = response.data.map(obj=>obj.username);
-    // // Populate people list in the modal
+    // Populate people list in the modal
   const peopleList2 = document.getElementById('peopleList2');
   peopleList2.innerHTML='';
   people2.forEach(person => {
