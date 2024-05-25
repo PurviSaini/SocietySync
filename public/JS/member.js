@@ -234,9 +234,9 @@ async function getNotices(){
   response.data.map((row) => {
     document.getElementById("notice-list").innerHTML += `<li>
       <div class="row">
-                  <h5 class="notice-title col">${row.title}</h5>
+                  <h5 class="notice-title col"><i class="fa fa-hand-o-right" style="font-size:15px; color:#2790a2;"></i>&nbsp;&nbsp;   ${row.title}</h5>
                 </div>
-      ${row.description}
+                <p class = "notice-desc">${row.description}</p>
     </li>`;
   });
   }

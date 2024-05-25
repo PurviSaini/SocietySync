@@ -137,16 +137,19 @@ div.column-2{
 
 div.column-2 div#notices{
     background-color:rgba(0, 255, 255, 0.071);
-    padding: 20px;
+    padding: 10px;
     color: #562f15;
     font-weight: 500;
-    overflow: scroll;
+    overflow-y: scroll;
     box-shadow: 0 0 10px grey;
+    max-height: 70%;
 }
 
 #notice-list li{
     border-bottom: 1px solid rgba(0, 166, 255, 0.507);
-    padding: 10px;
+    padding: 2px 10px;
+    max-height: 145px;
+    overflow: hidden;
 }
 
 div#notices div.notice-head{
@@ -157,7 +160,12 @@ div#notices div.notice-head{
 }
 
 #notices ul{
-    padding: 10px 30px;
+    padding: 10px 10px;
+}
+
+p.notice-desc{
+    background-color: rgba(157, 239, 240, 0.39);
+    padding: 10px 5px;
 }
 
 #view-members{
