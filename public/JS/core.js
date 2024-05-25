@@ -84,12 +84,12 @@ async function getNotices(){
   response.data.map((row) => {
     document.getElementById("notice-list").innerHTML += `<li>
       <div class="row">
-                  <h5 class="notice-title col">${row.title}</h5>
+      <h5 class="notice-title col-10"><i class="fa fa-hand-o-right" style="font-size:15px; color:#2790a2;"></i>&nbsp;&nbsp;   ${row.title}</h5>
                   <div class="col delete-notice" data-noticeId=${row._id} style="text-align: end">
                     <i class="fa fa-minus-circle"></i>
                   </div>
                 </div>
-      ${row.description}
+      <p class = "notice-desc">${row.description}</p>
     </li>`;
   });
   deleteNoticeButtons= document.querySelectorAll(".delete-notice");
@@ -101,6 +101,7 @@ else{
   alert("Error in getting notices");
 }
 }
+
 
 // upload notice
 const addNotice = document.getElementById("addNotice");
