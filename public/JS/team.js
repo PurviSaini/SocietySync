@@ -20,7 +20,7 @@ document.getElementById('log-in-out').addEventListener('click', () => {
     return await response.json(); 
   }
   
-  //display team name and username
+//display team name and username
 document.querySelector("#user-name").textContent=localStorage.getItem('username');
 document.querySelector(".team-name").textContent=localStorage.getItem('team')+" Team";
 document.addEventListener('DOMContentLoaded', async function () {
@@ -158,7 +158,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         else{
             alert("Error in fetching tasks");
         }
-
     }
 
     getTasks();

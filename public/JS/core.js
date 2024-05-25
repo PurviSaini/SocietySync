@@ -73,8 +73,9 @@ const uploadTask = async () => {
 
 document.getElementById("upload-task").addEventListener("click", uploadTask);
 
-// =======================================================================
-// Dummy data for notices
+
+let deleteNoticeButtons;
+// Function to add notice
 async function getNotices(){
   let response=await postData("/getNotices"); 
   console.log("responsefrom server: ",response)
@@ -103,7 +104,6 @@ else{
 
 }
 getNotices();
-// ======================================================================================
 // upload notice
 const addNotice = document.getElementById("addNotice");
 addNotice.addEventListener("click", async function () {
@@ -140,11 +140,8 @@ deleteNoticeButtons.forEach((button) => {
 // Function to delete notice
 const deleteNotice = (event) => {
   const noticeId = event.target.parentElement.getAttribute("data-noticeId");
-  // console.log(noticeId);
   console.log(event.target.parentElement.parentElement.parentElement);
 
-
-  // console.log("Button: ",event.target,"noitce box: ",event.target.parentElement);
   // Make a request to delete notice with the given noticeId
   fetch(`/deleteNotice/${noticeId}`, {
     method: "DELETE",
@@ -163,17 +160,3 @@ const deleteNotice = (event) => {
       alert("Error in deleting notice");
     });
 };
-
-// Add event listener to delete notice
-let deleteNoticeButtons;
-
-// // Or use function to add notice
-// function appendNotice(notices) {
-//   notices.forEach((row) => {
-//     document.getElementById("notice-list").innerHTML += `<li>
-//         <h5 class="notice-title">${row.title}</h5>
-//         ${row.description}
-//       </li>
-//       <hr />`;
-//   });
-// }
