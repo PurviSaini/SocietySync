@@ -25,6 +25,7 @@
     ></script>
   </head>
   <body>
+    <!-- Navbar -->
     <nav class="d-flex justify-content-between align-items-center">
       <div id="user">
         <a href="#">
@@ -34,13 +35,10 @@
           >
         </a>
       </div>
-      <!-- <div id="website-name">
-        <h1>Society Sync</h1>
-        <h5><i> Sync your societies with ease</i></h5>
-      </div> -->
       <a href="#"><button id="log-in-out">Log Out</button></a>
     </nav>
 
+    <!-- Page Content -->
     <div class="d-flex justify-content-between" id="div-cols">
       <!-- Left side Elements -->
       <div class="column-1 col-8">
@@ -117,26 +115,7 @@
             </button>
           </div>
           <ul id="notice-list">
-            <!-- <li>
-              <h5 class="notice-title">Title</h5>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-              numquam ea ducimus nemo voluptates totam, non maiores repellendus!
-              Aperiam, suscipit?
-            </li>
-            <hr />
-            <li>
-              <h5 class="notice-title">Title</h5>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-              numquam ea ducimus nemo voluptates totam, non maiores repellendus!
-              Aperiam, suscipit?
-            </li>
-            <hr />
-            <li>
-              <h5 class="notice-title">Title</h5>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-              numquam ea ducimus nemo voluptates totam, non maiores repellendus!
-              Aperiam, suscipit?
-            </li> -->
+            <!-- Populate Notice Board -->
           </ul>
         </div>
 
@@ -149,18 +128,20 @@
           aria-hidden="true"
         >
           <div
-            class="notice-form-modal modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            class="notice-form-modal modal-dialog modal-dialog-centered"
           >
-            <div class="modal-content">
+            <div 
+              class="modal-content px-4"
+              style="border-radius: 0; background-color: #9ed5df"
+            >
               <div class="modal-header">
-                <label
+                <h1
                   class="modal-title fs-5"
-                  for="notice-title"
                   id="exampleModalLabel"
+                  style="margin-left: 40%"
                 >
-                  Title:
-                </label>
-                <input type="text" name="notice-title" id="notice-title" />
+                  Notice
+                </h1>
                 <button
                   type="button"
                   class="btn-close"
@@ -169,16 +150,33 @@
                 ></button>
               </div>
               <!-- for notice description -->
-              <label class="modal-body" for="notice-desc">
-                Description :
-              </label>
-              <textarea   
-                      id="notice-desc"
-                      rows="3"
-                      required
-                    ></textarea>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">Close</button>
+              <div class="modal-body notice-body">
+                <form id="notice-form">
+                <div class="form-group">
+                  <label
+                    class="modal-title fs-5"
+                    for="notice-title"
+                    id="exampleModalLabel"
+                  >
+                    Title:
+                  </label>
+                  <input type="text" class="form-control" name="notice-title" id="notice-title" />
+                  </div>
+                  <br>
+                  <div class="form-group">
+                  <label for="notice-desc">
+                    Description :
+                  </label>
+                  <textarea   
+                    id="notice-desc"
+                    class="form-control"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+              </form>
+              </div>
+              <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-primary" id="addNotice">
                   Add Notice
                 </button>
@@ -187,7 +185,7 @@
           </div>
         </div>
 
-        <!-- to add task for different team -->
+        <!-- Button to add task for different teams -->
         <div id="div-add-task" class="row">
           <button
             class="btn py-1 px-3"
@@ -195,10 +193,11 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal1"
           >
-            Add Details
+            Add Task
           </button>
         </div>
-        <!-- Modal -->
+
+        <!-- Modal for adding task -->
         <div
           class="modal fade"
           id="exampleModal1"
@@ -270,7 +269,9 @@
             </div>
           </div>
         </div>
+
       </div>
+
     </div>
     <script src="/public/JS/core.js"></script>
   </body>

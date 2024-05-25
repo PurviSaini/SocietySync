@@ -33,15 +33,12 @@
           ><span id="user-name">Username</span>
         </a>
       </div>
-      <!-- <div id="website-name">
-        <h1>Society Sync</h1>
-        <h5><i> Sync your societies with ease</i></h5>
-      </div> -->
       <div id="log-in-out">
         <a href="#">Log Out</a>
       </div>
     </nav>
 
+    <!-- Page Content -->
     <div class="d-flex justify-content-between" id="div-cols">
       <!-- Left side elements -->
       <div class="column-1 col-8">
@@ -60,34 +57,7 @@
 
           <!-- List of tasks -->
           <div class="row px-3 tasks pt-4" id="tasks-list">
-            <!-- <div class="task" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-              <div class="row">
-                <h5 class="title col">Title</h5>
-                <div class="col" style="text-align: end">
-                  <button id="btn-completed">Completed</button>
-                </div>
-              </div>
-              <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
-              corrupti!</p>
-            </div> -->
-            <!-- <div class="task"> -->
-            <!-- <h5 class="title">Title</h5>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
-              corrupti!
-              <div class="assigned-to"></div>
-            </div>
-
-            <div class="task">
-                <h5 class="title">Title</h5>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
-              corrupti!
-            </div>
-
-            <div class="task">
-                <h5 class="title">Title</h5>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
-              corrupti!
-            </div> -->
+            <!-- Populate tasks-list -->
           </div>
         </div>
       </div>
@@ -113,7 +83,7 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body task-body">
+            <div class="modal-body task-body" id="modalBody1">
               <!-- Fill modal content -->
             </div>
             <div class="modal-footer d-flex justify-content-between p-4">
@@ -167,8 +137,36 @@
                 id="submit-people"
                 data-bs-dismiss="modal"
               >
-                Submit
+                Select
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task Modal for assigned tasks -->
+      <div
+        class="modal fade"
+        id="exampleModal3"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel3"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel3">
+                <!-- Fill modal heading -->
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body task-body" id="modalBody2">
+              <!-- Fill modal content -->
             </div>
           </div>
         </div>
@@ -184,26 +182,16 @@
 
           <!-- List of notices -->
           <ul id="notice-list">
-            <!-- <li>
-                <h5 class="notice-title">Title</h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-                numquam ea ducimus nemo voluptates totam, non maiores repellendus!
-                Aperiam, suscipit?
-              </li>
-              <hr />
-              <li>
-                <h5 class="notice-title">Title</h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-                numquam ea ducimus nemo voluptates totam, non maiores repellendus!
-                Aperiam, suscipit?
-              </li> -->
+            <!-- Populate notice board -->
           </ul>
         </div>
         <div id="view-members" class="row mt-4">
           <a href="/Team">View Members</a>
         </div>
       </div>
+
     </div>
+
     <script src="/public/JS/member.js"></script>
   </body>
 </html>

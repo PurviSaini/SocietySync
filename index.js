@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const User = require('./models/User');
 const Task = require('./models/Task');
-
+const Notice = require('./models/Notice');
 require('dotenv').config();
 
 const app = express();
@@ -126,8 +126,15 @@ app.post('/getAssociates', async (req, res) => {
 app.post("/uploadTask",async(req,res)=>{
   const {title,description,team}=req.body;
   try{
-    const task = new Task({title,description,team});
-    await task.save();
+    if(Array.isArray(team)){
+      for(let i=0; i<team.length; i++){
+        const task = new Task({title,description,team: team[i]});
+        await task.save();
+      }
+    } else {
+      const task = new Task({title,description,team});
+      await task.save();
+    }
     res.status(200).send({status:true});
   }
   catch(error){
@@ -135,6 +142,19 @@ app.post("/uploadTask",async(req,res)=>{
     res.status(500).send({status:false});
   }
 })
+
+app.post("/uploadNotice",async(req,res)=>{
+  const {title,description}=req.body;
+  try{
+    const notice = new Notice({title,description});
+    await notice.save();
+    res.status(200).send({status:true,id:notice._id});
+  }
+  catch(error){
+    console.error("Error uploading notice:",error);
+    res.status(500).send({status:false});
+  }
+});
 
 app.post("/getTasks",async(req,res)=>{
   const {team}=req.body;
@@ -148,6 +168,17 @@ app.post("/getTasks",async(req,res)=>{
   }
 })
 
+app.post("/getNotices",async(req,res)=>{
+  try{
+    const notices = await Notice.find();
+    res.status(200).send({status:true,data:notices});
+  }
+  catch(error){
+    console.error("Error fetching notices:",error);
+    res.status(500).send({status:false});
+  }
+});
+
 // Delete task by ID
 app.delete("/deleteTask/:id", async (req, res) => {
   const taskId = req.params.id;
@@ -160,6 +191,54 @@ app.delete("/deleteTask/:id", async (req, res) => {
   } catch (error) {
     console.error("Server Error deleting task:", error);
     res.status(500).send({ message: "Failed to delete task" });
+  }
+});
+
+app.delete("/deleteNotice/:id", async (req, res) => {
+  const noticeId = req.params.id;
+  try {
+    const deletedNotice = await Notice.findByIdAndDelete(noticeId);
+    if (!deletedNotice) {
+      return res.status(404).send({ message: "Notice not found" });
+    }
+    res.status(200).send({ message: "Notice deleted successfully" });
+  } catch (error) {
+    console.error("Server Error deleting notice:", error);
+    res.status(500).send({ message: "Failed to delete notice" });
+  }
+});
+
+app.post("/getCoordinates",async(req,res)=>{
+  const {team}=req.body;
+  try{
+    const coordinates = await User.find({ team, role: "Coordinator" }).select("username");
+    res.status(200).send({status:true,data:coordinates});
+  }
+  catch(error){
+    console.error("Error fetching coordinates:",error);
+    res.status(500).send({status:false});
+  }
+});
+
+app.post("/assignTask",async(req,res)=>{
+  const {assignedTo,taskId}=req.body;
+  try{
+    await Task.findByIdAndUpdate(taskId,{status:"Assigned",assignedTo});
+    res.status(200).send({status:true});
+  }catch{
+    console.error("Error updating task status:",error);
+    res.status(500).send({status:false});
+  }
+});
+
+app.put("/updateTaskStatus/:id",async(req,res)=>{
+  const taskId=req.params.id;
+  try{
+    await Task.findByIdAndUpdate(taskId,{status:"Completed"});
+    res.status(200).send({status:true});
+  }catch{
+    console.error("Error updating task:",error);
+    res.status(500).send({status:false});
   }
 });
 

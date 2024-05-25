@@ -25,7 +25,6 @@ document.querySelector("#user-name").textContent=localStorage.getItem('username'
 document.querySelector(".team-name").textContent=localStorage.getItem('team')+" Team";
 document.addEventListener('DOMContentLoaded', async function () {
     //Hide the associates list if Role is of an Associate
-    //Done ✅
     let role = localStorage.getItem('role');
     const associateList = document.querySelector('.sidebar');
     if(role === "Associate") {
@@ -34,9 +33,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     let response=await postData('/getAssociates', {team:localStorage.getItem('team'),role:"Associate"});
     if(response.status){
-    // Backend data will be used instead of this for list of all the associates in a particular team
     const people = response.data.map(obj => obj.username);
-    // Populate people list ❗
+    // Populate people list
     const peopleList = document.getElementById('peopleList');
     people.forEach(person => {
         const listItem = document.createElement('li');
@@ -62,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             taskElement.forEach(element => {
               element.remove();
             });
+            alert('Task deleted successfully');
           }
           else{
             alert("Error in deleting the task");

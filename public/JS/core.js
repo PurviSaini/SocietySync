@@ -50,16 +50,16 @@ const uploadTask = async () => {
   // Get form data
   const taskTitle = document.getElementById("taskTitle").value;
   const taskDescription = document.getElementById("taskDescription").value;
-  const team = document.getElementById("team").value;
-
+  let team = document.getElementById("team").value;
+  if (team === "All") {
+    team = ["Website","Public Relations","Event Management","Sponsor","Creative"]; 
+  }
   // Create task object
   const task = {
     title: taskTitle,
     description: taskDescription,
     team: team,
   };
-  // Log task object (you can do whatever you want with this data)
-  // console.log('New Task:', task);
   let response = await postData("/uploadTask", task);
   if (response.status) {
     alert("Task uploaded successfully");
@@ -75,74 +75,105 @@ document.getElementById("upload-task").addEventListener("click", uploadTask);
 
 // =======================================================================
 // Dummy data for notices
-const notices = [
-  {
-    sno: 1,
-    title: "Title 1",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-  },
-  {
-    sno: 2,
-    title: "Title 2",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-  },
-  {
-    sno: 3,
-    title: "Title 3",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-  },
-  {
-    sno: 4,
-    title: "Title 4",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendinumquam ea ducimus nemo voluptates totam",
-  },
-];
-// adding notices to notice list in 'Notice Board'
-notices.forEach((row) => {
-  document.getElementById("notice-list").innerHTML += `<li>
+async function getNotices(){
+  let response=await postData("/getNotices"); 
+  console.log("responsefrom server: ",response)
+  if(response.status){
+  // adding notices to notice list in 'Notice Board'
+  response.data.map((row) => {
+    document.getElementById("notice-list").innerHTML += `<li>
+      <div class="row">
+                  <h5 class="notice-title col">${row.title}</h5>
+                  <div class="col delete-notice" data-noticeId=${row._id} style="text-align: end">
+                    <i class="fa fa-minus-circle"></i>
+                  </div>
+                </div>
+      ${row.description}
+    </li>`;
+  });
+  deleteNoticeButtons= document.querySelectorAll(".delete-notice");
+
+  deleteNoticeButtons.forEach((button) => {
+    button.addEventListener("click", deleteNotice);
+  });
+  }
+else{
+  alert("Error in getting notices");
+}
+
+}
+getNotices();
+// ======================================================================================
+// upload notice
+const addNotice = document.getElementById("addNotice");
+addNotice.addEventListener("click", async function () {
+  const noticeTitle = document.getElementById("notice-title").value;
+  const noticeDescription = document.getElementById("notice-desc").value;
+  console.log(noticeTitle, noticeDescription);
+
+  //add notice to db
+  let response=await postData("/uploadNotice",{title:noticeTitle,description:noticeDescription});
+  if(response.status){
+    alert("Notice uploaded successfully");
+    document.getElementById("notice-list").innerHTML += `<li>
     <div class="row">
-                <h5 class="notice-title col">${row.title}</h5>
-                <div class="col delete-notice" style="text-align: end">
+                <h5 class="notice-title col">${noticeTitle}</h5>
+                <div class="col delete-notice" data-noticeId=${response.id} style="text-align: end">
                   <i class="fa fa-minus-circle"></i>
                 </div>
               </div>
-    ${row.description}
-  </li>
-  <hr />`;
+    ${noticeDescription}
+    </li>`;
+deleteNoticeButtons= document.querySelectorAll(".delete-notice");
+
+deleteNoticeButtons.forEach((button) => {
+  button.addEventListener("click", deleteNotice);
+});
+  }
+  else{
+    alert("Error in uploading notice");
+  }
+
+  document.getElementById("notice-form").reset();
 });
 
-// ======================================================================================
-// Adding
-const addNotice = document.getElementById("addNotice");
-addNotice.addEventListener("click", function () {
-  const noticeTitle = document.getElementById("notice-title").value;
-  const noticeDescription = document.getElementById("notice-desc").value;
+// Function to delete notice
+const deleteNotice = (event) => {
+  const noticeId = event.target.parentElement.getAttribute("data-noticeId");
+  // console.log(noticeId);
+  console.log(event.target.parentElement.parentElement.parentElement);
 
-  // dummy data
-  const noticeList = [
-    { sno: 1, title: noticeTitle, description: noticeDescription },
-  ];
 
-  noticeList.forEach((row) => {
-    document.getElementById("notice-list").innerHTML += `<li>
-    <h5 class="notice-title">${row.title}</h5>
-    ${row.noticeDescription}
-  </li>
-  <hr/>`;
-  });
-});
+  // console.log("Button: ",event.target,"noitce box: ",event.target.parentElement);
+  // Make a request to delete notice with the given noticeId
+  fetch(`/deleteNotice/${noticeId}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (response.status) {
+        // Remove the notice from the DOM
+        event.target.parentElement.parentElement.parentElement.remove();
 
-// Or use function to add notice
-function appendNotice(notices) {
-  notices.forEach((row) => {
-    document.getElementById("notice-list").innerHTML += `<li>
-        <h5 class="notice-title">${row.title}</h5>
-        ${row.description}
-      </li>
-      <hr />`;
-  });
-}
+        alert("Notice deleted successfully");
+      } else {
+        alert("Error in deleting notice");
+      }
+    })
+    .catch((error) => {
+      alert("Error in deleting notice");
+    });
+};
+
+// Add event listener to delete notice
+let deleteNoticeButtons;
+
+// // Or use function to add notice
+// function appendNotice(notices) {
+//   notices.forEach((row) => {
+//     document.getElementById("notice-list").innerHTML += `<li>
+//         <h5 class="notice-title">${row.title}</h5>
+//         ${row.description}
+//       </li>
+//       <hr />`;
+//   });
+// }
