@@ -30,7 +30,7 @@ let team = localStorage.getItem("team");
 document.getElementById("member-name").textContent = document.getElementById(
   "user-name"
 ).textContent = username;
-document.getElementById("position").textContent = role;
+document.getElementById("position").innerHTML = `<span>{ </span>${role}<span> }</span>`;
 
 //open specific team page on clicking team container
 const openTeam = (event) => {
