@@ -7,6 +7,7 @@ const User = require('./models/User');
 const Task = require('./models/Task');
 const Notice = require('./models/Notice');
 require('dotenv').config();
+const MongoStore=require('connect-mongo');
 
 const app = express();
 
@@ -21,7 +22,11 @@ app.use("/public", express.static(__dirname + "/public"));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    collectionName: 'sessions'
+  })
 }));
 
 // Middleware to check if user is logged in
