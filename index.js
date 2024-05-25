@@ -41,7 +41,7 @@ async function run() {
     await mongoose.connection.db.admin().command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } catch (error) {
-    console.log("error in connection to db")
+    console.log("error in connection to db: ",error)
   }
 }
 run().catch(console.dir);
