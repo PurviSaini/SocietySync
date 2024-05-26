@@ -115,12 +115,12 @@ addNotice.addEventListener("click", async function () {
     alert("Notice uploaded successfully");
     document.getElementById("notice-list").innerHTML += `<li>
     <div class="row">
-                <h5 class="notice-title col">${noticeTitle}</h5>
+                <h5 class="notice-title col"><i class="fa fa-hand-o-right" style="font-size:15px; color:#2790a2;"></i>&nbsp;&nbsp;   ${noticeTitle}</h5>
                 <div class="col delete-notice" data-noticeId=${response.id} style="text-align: end">
                   <i class="fa fa-minus-circle"></i>
                 </div>
               </div>
-    ${noticeDescription}
+              <p class = "notice-desc">${noticeDescription}</p>
     </li>`;
 deleteNoticeButtons= document.querySelectorAll(".delete-notice");
 deleteNoticeButtons.forEach((button) => {

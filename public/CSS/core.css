@@ -119,6 +119,7 @@ div.column-2 div#notices{
 
 #notice-list li{
     border-bottom: 1px solid rgba(0, 166, 255, 0.507);
+    margin-top:10px;
     padding: 2px 10px;
     max-height: 145px;
     overflow: hidden;
