@@ -1,42 +1,24 @@
 const express = require('express');
-const session = require('express-session');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const {userAuth} = require('./middlewares/auth');
 const User = require('./models/User');
 const Task = require('./models/Task');
 const Notice = require('./models/Notice');
 require('dotenv').config();
-const MongoStore=require('connect-mongo');
 
 const app = express();
 
-// Middleware for parsing JSON and URL-encoded form data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // Middleware for serving static files from the 'public' folder
 app.use("/public", express.static(__dirname + "/public"));
 
-// Set up session middleware
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
-    collectionName: 'sessions'
-  })
-}));
-
-// Middleware to check if user is logged in
-const isLoggedIn = (req, res, next) => {
-  if (req.session && req.session.user) {
-    next();
-  } else {
-    res.status(401).redirect('/');
-  }
-};
 //connect to databse
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 async function run() {
@@ -60,15 +42,15 @@ app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/pages/signup.html');
   });
 
-app.get('/Core', isLoggedIn, (req, res) => {
+app.get('/Core', userAuth, (req, res) => {
     res.sendFile(__dirname + '/pages/core.html');
   });
 
-app.get('/Member', isLoggedIn, (req, res) => {
+app.get('/Member', userAuth, (req, res) => {
     res.sendFile(__dirname + '/pages/member.html');
   });
 
-app.get('/Team', isLoggedIn, (req, res) => {
+app.get('/Team', userAuth, (req, res) => {
     res.sendFile(__dirname + '/pages/team.html');
   });
 
@@ -105,8 +87,15 @@ app.post('/login',async (req, res) => {
     if (!isMatch) {
       return res.status(401).send({ title: "Invalid Password" });
     }
-    // Login successful, set session variable
-    req.session.user = user;
+    // Login successful, Adding JWT Authentication
+
+    //1. Create JWT Token
+    const token = await jwt.sign({_id: user._id}, process.env.JWT_SECRET);
+
+    //2. Add the token to cookie and send the reponse back to the user
+    res.cookie('token', token);
+    
+    // req.session.user = user;
     res.send({ message: "Login successful",role:user.role,team:user.team });
   } catch (error) {
     res.status(500).send({ message: "Failed to login" });
@@ -255,13 +244,8 @@ app.put("/updateTaskStatus/:id",async(req,res)=>{
 
 //log out
 app.post('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error destroying session:');
-    } else {
-      res.status(200).send({ message: "Logged out" });
-    }
-  });
+  res.clearCookie('token');
+  res.send({ message: "Logout successful" });
 });
 
 // Start server
